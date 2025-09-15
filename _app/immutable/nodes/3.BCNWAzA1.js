@@ -1,0 +1,1 @@
+import{r}from"../chunks/hUONLBj8.js";import{b as e}from"../chunks/BkGwiGbL.js";const l=({url:t,data:a})=>{const o=a?.user;if(console.log("layout load user:",o),t.pathname===`${e}/`)throw o?r(302,`${e}/inicio`):r(302,`${e}/login`);return{}},n=Object.freeze(Object.defineProperty({__proto__:null,load:l},Symbol.toStringTag,{value:"Module"}));export{n as universal};
