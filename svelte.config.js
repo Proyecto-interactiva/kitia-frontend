@@ -1,23 +1,13 @@
 import adapter from '@sveltejs/adapter-static';
-import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-const dev = process.argv.includes('localdev');
+const isRender = !!process.env.RENDER;      // Render define RENDER=1
+const isDev = process.argv.includes('dev');
 
-/** @type {import('@sveltejs/kit').Config} */
-const config = {
-    preprocess: vitePreprocess(),
+export default {
     kit: {
-        adapter: adapter({
-            // GitHub Pages necesita 404.html como fallback SPA
-            fallback: '404.html'
-        }),
-        // base sólo en prod, con el nombre exacto del repo (sin slash final)
-        paths: {
-            base: dev ? '' : '/kitia-frontend'
-        },
-        // Para SPA puro (sin prerender de rutas)
-        prerender: { entries: ['*', '/inicio'] }
-    }
+        adapter: adapter({ fallback: '404.html' }),
+        // En Render y en dev → sin base (raíz). Para GitHub Pages puedes dejar el base aparte.
+        paths: { base: (isRender || isDev) ? '' : '/kitia-frontend' },
+        trailingSlash: 'always',
+    },
 };
-
-export default config;
