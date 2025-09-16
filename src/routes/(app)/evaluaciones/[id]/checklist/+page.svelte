@@ -2,6 +2,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
+    import { base } from '$app/paths';
 
     type Pregunta = {
         id: string;
@@ -104,7 +105,7 @@
             </div>
         </div>
         <button class="btn" style="background:#4338ca;color:#fff;border:none;cursor:pointer;"
-                on:click={() => window.location.href = `/evaluaciones/${evaluacionId}/resultados`}>Ver resultados</button>
+                on:click={() => window.location.href = `${base}/evaluaciones/${evaluacionId}/resultados`}>Ver resultados</button>
 
         {#each pilares as pilar}
             <div class="card">

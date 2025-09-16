@@ -1,8 +1,9 @@
 <!-- src/routes/(app)/+layout.svelte -->
 <script lang="ts">
+    import { base } from '$app/paths';
     async function logout(){
-        await fetch('/api/auth/logout', { method: 'POST' });
-        window.location.href = '/login';
+        await fetch(`${base}/api/auth/logout`, { method: 'POST' });
+        window.location.href = `${base}/login`;
     }
 </script>
 
@@ -10,9 +11,8 @@
     <div class="header-inner">
         <strong>Bitácora RAG</strong>
         <nav class="nav">
-            <a href="/">Bitácoras</a>
-            <a href="/rag">Buscar (RAG)</a>
-            <a href="/audit">Auditoría</a>
+            <a href="{base}/inicio">Inicio</a>
+            <a href="{base}/evaluaciones">Evaluaciones</a>
             <button class="button" on:click={logout}>Salir</button>
         </nav>
     </div>

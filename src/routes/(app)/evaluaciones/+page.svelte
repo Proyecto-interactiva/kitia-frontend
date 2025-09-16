@@ -1,5 +1,6 @@
 <!-- src/routes/(app)/evaluaciones/+page.svelte -->
 <script lang="ts">
+    import { base } from '$app/paths';
     import { onMount } from 'svelte';
 
     type Eval = {
@@ -17,7 +18,7 @@
     onMount(async () => {
         try {
             // pedir a backend (que internamente usa Groq) las evaluaciones del usuario
-            const res = await fetch('/api/evaluaciones');
+            const res = await fetch(`${base}/api/evaluaciones`);
             if (!res.ok) throw new Error(await res.text());
             evaluaciones = await res.json();
             console.log(evaluaciones);
@@ -90,8 +91,8 @@
                 </div>
 
                 <div class="actions">
-                    <button class="btn" on:click={() => window.location.href = `/evaluaciones/${ev._id}/checklist`}>Editar</button>
-                    <button class="btn" on:click={() => window.location.href = `/evaluaciones/${ev._id}/resultados`}>Ver resultados</button>
+                    <button class="btn" on:click={() => window.location.href = `${base}/evaluaciones/${ev._id}/checklist`}>Editar</button>
+                    <button class="btn" on:click={() => window.location.href = `${base}/evaluaciones/${ev._id}/resultados`}>Ver resultados</button>
                 </div>
             </div>
         {/each}

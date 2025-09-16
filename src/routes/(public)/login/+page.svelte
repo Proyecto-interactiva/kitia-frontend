@@ -1,18 +1,20 @@
 <!-- src/routes/(public)/login/+page.svelte -->
+
 <script lang="ts">
+    import { base } from '$app/paths';
     let email = ''; let password = ''; let err = ''; let loading = false;
 
     async function submit(kind: 'login'|'register'){
         loading = true; err = '';
         try {
-            const res = await fetch(`/api/auth/${kind}`, {
+            const res = await fetch(`${base}/api/auth/${kind}`, {
                 method: 'POST',
                 headers: {'content-type':'application/json'},
                 body: JSON.stringify({ email, password })
             });
             if(!res.ok){ throw new Error((await res.text()) || 'Error'); }
             // cookies vienen por Set-Cookie (proxy las mantiene)
-            window.location.href = '/';
+            window.location.href = `${base}/inicio`;
         } catch(e:any){ err = e.message; }
         loading = false;
     }

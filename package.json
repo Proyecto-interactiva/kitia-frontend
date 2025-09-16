@@ -5,13 +5,14 @@
 	"type": "module",
 	"scripts": {
 		"dev": "vite --mode localdev",
-		"build": "vite build",
+        "build": "vite build --mode prd",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint ."
+		"lint": "prettier --check . && eslint .",
+        "deploy": "npx gh-pages -d build"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",

@@ -1,5 +1,6 @@
 <!-- src/routes/(app)/inicio/+page.svelte -->
 <script lang="ts">
+    import { base } from '$app/paths';
     // Estado de selección
     let choice: 'new' | 'history' | null = null;
 
@@ -7,9 +8,9 @@
     function goBack(){ history.back(); }
     function start(){
         if (choice === 'new') {
-            window.location.href = '/evaluacion/nueva';
+            window.location.href = `${base}/evaluaciones/nueva`;
         } else if (choice === 'history') {
-            window.location.href = '/evaluaciones';
+            window.location.href = `${base}/evaluaciones`;
         }
     }
 

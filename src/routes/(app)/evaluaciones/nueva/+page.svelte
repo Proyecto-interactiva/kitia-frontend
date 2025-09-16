@@ -1,5 +1,6 @@
 <!-- src/routes/(app)/evaluacion/nueva/+page.svelte -->
 <script lang="ts">
+    import { base } from '$app/paths';
     // === Estado del formulario – Sección 1 ===
     type Rol = 'periodista' | 'audiovisual' | 'publicista' | 'otro';
     type Etapa =
@@ -39,14 +40,14 @@
 
         sending = true;
         try{
-            const res = await fetch('/api/evaluaciones', {
+            const res = await fetch(`${base}/api/evaluaciones`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
             });
             if(!res.ok) throw new Error(await res.text());
             // Redirige a sección 2 (checklist por LLM) con id de logbook/evaluación
-            const created = await res.json().then((r) => window.location.href = `/evaluaciones/${r._id}/checklist`);
+            const created = await res.json().then((r) => window.location.href = `${base}/evaluaciones/${r._id}/checklist`);
         }catch(e:any){ error = e.message || 'Error al crear la evaluación.'; }
         finally{ sending = false; }
     }
