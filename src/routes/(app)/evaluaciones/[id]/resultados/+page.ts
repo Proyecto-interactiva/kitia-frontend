@@ -1,6 +1,7 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
 import { base } from '$app/paths';
+import { API_BASE } from '$lib/config';
 
 type Fort = { id: string; texto: string; puntos: number; pilar: string; impact?: number };
 type Mejora = { id: string; texto: string; puntos: number; pilar: string; prioridad: number; esfuerzo: number };
@@ -23,7 +24,7 @@ export type ResultadosData = {
 
 export const load: PageLoad = async ({ params, fetch }) => {
     const { id } = params;
-    const res = await fetch(`${base}/api/evaluaciones/${id}/resultados`);
+    const res = await fetch(`${API_BASE}/evaluaciones/${id}/resultados`);
     if (!res.ok) {
         throw error(res.status, await res.text());
     }

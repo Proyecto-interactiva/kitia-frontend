@@ -3,6 +3,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
     import { base } from '$app/paths';
+    import { API_BASE } from '$lib/config';
 
     type Pregunta = {
         id: string;
@@ -28,7 +29,7 @@
     onMount(async () => {
         try {
             // pedir a backend (que internamente usa Groq) los pilares + checklist
-            const res = await fetch(`/api/evaluaciones/${evaluacionId}/checklist`);
+            const res = await fetch(`${API_BASE}/evaluaciones/${evaluacionId}/checklist`);
             if (!res.ok) throw new Error(await res.text());
             pilares = await res.json();
             console.log(pilares);
@@ -47,7 +48,7 @@
         if (!q) return;
         q.completada = !q.completada;
         // actualizar en backend
-        fetch(`/api/evaluaciones/${evaluacionId}/preguntas/${preguntaId}`, {
+        fetch(`${API_BASE}/evaluaciones/${evaluacionId}/preguntas/${preguntaId}`, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ completada: q.completada, notas: q.notas ?? '' })
@@ -60,7 +61,7 @@
         const q = pilar.preguntas.find(q => q.id === preguntaId);
         if (!q) return;
         q.notas = notas;
-        fetch(`/api/evaluaciones/${evaluacionId}/preguntas/${preguntaId}`, {
+        fetch(`${API_BASE}/evaluaciones/${evaluacionId}/preguntas/${preguntaId}`, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
             body: JSON.stringify({ completada: q.completada, notas })

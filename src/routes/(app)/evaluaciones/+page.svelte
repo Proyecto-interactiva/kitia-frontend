@@ -2,6 +2,7 @@
 <script lang="ts">
     import { base } from '$app/paths';
     import { onMount } from 'svelte';
+    import { API_BASE } from '$lib/config';
 
     type Eval = {
         id: string;
@@ -18,7 +19,16 @@
     onMount(async () => {
         try {
             // pedir a backend (que internamente usa Groq) las evaluaciones del usuario
-            const res = await fetch(`${base}/api/evaluaciones/list`);
+            const token = localStorage.getItem('access_token') || '';
+            const res = await fetch(`${API_BASE}/evaluaciones/list`,{
+                method: 'GET',
+                headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include', // si usas cookies; si solo usas bearer, puedes quitarlo
+                mode: 'cors',
+        });
             if (!res.ok) throw new Error(await res.text());
             evaluaciones = await res.json();
             console.log(evaluaciones);

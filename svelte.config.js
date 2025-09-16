@@ -16,7 +16,7 @@ const config = {
             base: dev ? '' : '/kitia-frontend'
         },
         // Para SPA puro (sin prerender de rutas)
-        prerender: { entries: [] }
+        prerender: { entries: ['*', '/inicio'] }
     }
 };
 
