@@ -40,7 +40,7 @@
 
         sending = true;
         try{
-            const res = await fetch(`${base}/api/evaluaciones`, {
+            const res = await fetch(`${base}/api/evaluaciones/new`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)

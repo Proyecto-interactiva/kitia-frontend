@@ -18,7 +18,7 @@
     onMount(async () => {
         try {
             // pedir a backend (que internamente usa Groq) las evaluaciones del usuario
-            const res = await fetch(`${base}/api/evaluaciones`);
+            const res = await fetch(`${base}/api/evaluaciones/list`);
             if (!res.ok) throw new Error(await res.text());
             evaluaciones = await res.json();
             console.log(evaluaciones);
