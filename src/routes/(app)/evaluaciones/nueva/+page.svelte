@@ -1,6 +1,7 @@
 <!-- src/routes/(app)/evaluacion/nueva/+page.svelte -->
 <script lang="ts">
     import { base } from '$app/paths';
+    import { API_BASE } from '$lib/config';
     // === Estado del formulario – Sección 1 ===
     type Rol = 'periodista' | 'audiovisual' | 'publicista' | 'otro';
     type Etapa =
@@ -40,9 +41,15 @@
 
         sending = true;
         try{
-            const res = await fetch(`${base}/api/evaluaciones/new`, {
+            const token = localStorage.getItem('access_token') || '';
+            const res = await fetch(`${API_BASE}/evaluaciones/new`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                credentials: 'include', // si usas cookies; si solo usas bearer, puedes quitarlo
+                mode: 'cors',
                 body: JSON.stringify(payload)
             });
             if(!res.ok) throw new Error(await res.text());

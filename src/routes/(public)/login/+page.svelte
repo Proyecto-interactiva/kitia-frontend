@@ -27,7 +27,7 @@
             localStorage.setItem('access_token', data.access_token);
 
             // redirige
-            window.location.href = `${base}/inicio/`;
+            window.location.href = `${base}/tutor/`;
         } catch (e: any) {
             err = e.message;
         } finally {
