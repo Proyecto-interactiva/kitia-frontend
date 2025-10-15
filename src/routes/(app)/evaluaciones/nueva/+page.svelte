@@ -14,11 +14,11 @@
     let sending = false;
     let error = '';
 
-    // Estado “extraído” (meta) que llega desde el backend (SSE event: meta)
+    // meta del backend
     let etapa: Etapa | null = null;
     let descripcion = '';
     let herramientas = '';
-    let ready = false; // flag de “listo para análisis” calculado por backend + heurística
+    let ready = false;
 
     const minInfoOK = () => Boolean(etapa && (descripcion?.trim().length ?? 0) >= 20);
 
@@ -42,34 +42,39 @@
             const data = await res.json();
             draftId = data.draft_id;
             nombre = data.default_name || `Evaluación ${new Date().toLocaleDateString()}-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-            // Mensaje inicial (también lo puedes renderizar desde backend)
             push('assistant', '👋 Hola, soy tu Tutor IA. Cuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras.\n\nPara orientarte mejor, estas son las etapas que suelo manejar:\n\t - Creación de Contenidos \n\t - Revisión y Validación \n\t - Publicación y Difusión \n\t -Posproducción \n\t -MonitoreoPlanificación.\n\n Te haré algunas preguntas y cuando creas que está todo lo que necesitas compartir puedes hacer clic en "Continuar con evaluación ética". ¡Empecemos!');
-
         }catch(e:any){
             error = e?.message || 'No se pudo iniciar el chat.';
         }
     });
 
-        async function typewriter(text: string, targetIndex: number, delay = 12) {
-            // añade la respuesta como mensaje "assistant" vacío si no existe
-            if (messages[targetIndex]?.role !== 'assistant') {
-                messages = [...messages, { role: 'assistant', content: '', ts: Date.now() }];
-                targetIndex = messages.length - 1;
-            }
-            for (let i = 0; i < text.length; i++) {
-                messages[targetIndex].content += text[i];
-                messages = [...messages];
-                await new Promise(r => setTimeout(r, delay));
-            }
+    async function typewriter(text: string, targetIndex: number, delay = 12) {
+        if (messages[targetIndex]?.role !== 'assistant') {
+            messages = [...messages, { role: 'assistant', content: '', ts: Date.now() }];
+            targetIndex = messages.length - 1;
         }
+        for (let i = 0; i < text.length; i++) {
+            messages[targetIndex].content += text[i];
+            messages = [...messages];
+            // Scroll chatbox to bottom after each character
+            queueMicrotask(() => {
+                const box = document.getElementById('chatbox');
+                if (box) box.scrollTop = box.scrollHeight;
+            });
+            await new Promise(r => setTimeout(r, delay));
+        }
+    }
 
     async function send(){
         const text = input.trim();
         if(!text || !draftId) return;
         error = '';
-        // 1) Pinta mensaje de usuario
         messages = [...messages, { role:'user', content:text, ts:Date.now() }];
         input = '';
+        queueMicrotask(() => {
+            const box = document.getElementById('chatbox');
+            if (box) box.scrollTop = box.scrollHeight;
+        });
 
         try{
             sending = true;
@@ -82,10 +87,8 @@
             if(!res.ok) throw new Error(await res.text());
             const data = await res.json();
 
-            // 2) “finge” streaming escribiendo la respuesta con efecto de tipeo
             await typewriter(data.reply, messages.length);
 
-            // 3) Actualiza meta/ready
             const meta = data.extracted || {};
             if (meta.etapa) etapa = meta.etapa;
             if (meta.descripcion) descripcion = meta.descripcion;
@@ -99,7 +102,7 @@
         }
     }
 
-async function continuar(){
+    async function continuar(){
         if(!minInfoOK()){
             error = 'Necesito al menos la etapa y una descripción breve (≥ 20 chars).';
             return;
@@ -109,7 +112,6 @@ async function continuar(){
             descripcion: descripcion.trim(),
             herramientas: herramientas.trim(),
             nombre: (nombre && nombre.trim()) ? nombre.trim() : `Evaluación ${new Date().toLocaleDateString()}`,
-            // opcional: enlazar conversación
             draft_id: draftId
         };
         try{
@@ -131,78 +133,222 @@ async function continuar(){
 </script>
 
 <style>
-    :root{ --bg:#f7f7fb; --ink:#111827; --muted:#6b7280; --line:#e5e7eb; --card:#fff; }
-    .wrap{ min-height:100dvh; background:var(--bg); color:var(--ink); display:flex; }
-    .container{ max-width:860px; margin:0 auto; padding:16px; width:100%; display:flex; flex-direction:column; gap:12px; }
-    .h1{ font-size:22px; font-weight:700; margin:8px 0 0; }
-    .sub{ color:var(--muted); margin:0 0 8px; }
+    :root{
+        --cream:#f7efd2;
+        --ink:#1f2937;
+        --muted:#6b7280;
+        --card:#ffffff;
+        --line:#ece5d6;
 
-    .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px; }
-    .label{ font-weight:600; margin-bottom:6px; }
-    .input{ width:100%; border:1px solid var(--line); border-radius:10px; padding:10px 12px; }
+        --yellow:#e9bf3c;
+        --green:#37b56f;
 
-    .chat{ display:flex; flex-direction:column; gap:10px; background:var(--card); border:1px solid var(--line); border-radius:16px; min-height:50vh; }
-    .chathead{ padding:12px; border-bottom:1px solid var(--line); display:flex; gap:8px; align-items:center; }
-    .chatbody{ padding:12px; overflow:auto; max-height:55vh; min-height:40vh; }
-    .msg{ max-width:80%; margin:8px 0; padding:10px 12px; border-radius:14px; line-height:1.35; white-space:pre-wrap; }
-    .assistant{ background:#f3f4f6; border:1px solid #e5e7eb; color:#111827; border-top-left-radius:6px; }
-    .user{ background:#111827; color:#fff; margin-left:auto; border-top-right-radius:6px; }
-    .composer{ display:flex; gap:8px; padding:12px; border-top:1px solid var(--line); background:linear-gradient(180deg, rgba(255,255,255,0.55), #fff); }
-    .textarea{ flex:1; border:1px solid var(--line); border-radius:12px; padding:10px 12px; resize:none; height:46px; }
-    .btn{ appearance:none; border:1px solid var(--line); background:#fff; color:#111827; border-radius:10px; padding:12px 16px; cursor:pointer; font-weight:700; }
-    .btn.primary{ background:#111827; color:#fff; border-color:#111827; }
-    .hint{ font-size:13px; color:var(--muted); }
-    .footer{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
-    .error{ color:#b91c1c; }
-    .btn.primary:disabled {
-        background: #e5e7eb;
-        color: #6b7280;
-        border-color: #e5e7eb;
-        cursor: not-allowed;
-        opacity: 0.7;
+        --shadow:0 18px 40px rgba(0,0,0,.12);
+        --shadow-sm:0 10px 20px rgba(0,0,0,.08);
+        --radius:22px;
     }
+
+    .page{ min-height:100dvh; background: var(--cream); color:var(--ink); }
+    .container{ max-width:1100px; margin:0 auto; padding: clamp(12px,3.6vw,26px); display:grid; gap:14px; }
+
+    /* Hero */
+    .hero{
+        background:#fff; border:1px solid var(--line); border-radius: var(--radius);
+        padding: 18px; box-shadow: var(--shadow);
+        display:flex; justify-content:space-between; align-items:center; gap:12px;
+    }
+    .hero h1{ margin:0; font-weight:900; font-size: clamp(22px,4.2vw,36px) }
+    .hero p{ margin:0; color: var(--muted) }
+
+    /* Cards base */
+    .card{
+        background:#fff; border:1px solid var(--line); border-radius: 18px;
+        box-shadow: var(--shadow);
+    }
+    .pad{ padding: 14px; }
+
+    /* Grid principal: chat + meta */
+    .layout{
+        display:grid; gap: 16px; grid-template-columns: 1.2fr .8fr;
+    }
+    @media (max-width: 980px){ .layout{ grid-template-columns: 1fr; } }
+
+    /* Nombre */
+    .label{ font-weight:800; margin-bottom:6px; }
+    .input{
+        width:100%; border:1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+        background:#fff; outline:none;
+    }
+    .hint{ font-size: 13px; color: var(--muted); }
+
+    /* Chat */
+    .chat{ display:flex; flex-direction:column; min-height:60vh; }
+    .chathead{
+        padding: 12px 14px; border-bottom:1px solid var(--line);
+        display:flex; gap:10px; align-items:center; font-weight:800;
+        background: linear-gradient(180deg, #fff7d6, #fff);
+        border-top-left-radius: 18px; border-top-right-radius: 18px;
+    }
+    .chatbody{ padding:14px; overflow:auto; max-height:55vh; min-height:40vh; }
+    .msg{
+        max-width:78%; margin:10px 0; padding:12px 14px; border-radius: 16px;
+        line-height:1.45; white-space:pre-wrap; box-shadow: var(--shadow-sm);
+    }
+    .assistant{ background:#fff; border:1px solid var(--line); color:#1f2937; border-top-left-radius:6px; }
+    .user{ background:#111827; color:#fff; margin-left:auto; border-top-right-radius:6px; }
+
+    .composer{
+        display:flex; gap:10px; padding:12px; border-top:1px solid var(--line);
+        background:linear-gradient(180deg, rgba(255,255,255,0.6), #fff);
+        border-bottom-left-radius: 18px; border-bottom-right-radius: 18px;
+    }
+    .textarea{
+        flex:1; border:1px solid var(--line); border-radius: 12px; padding: 10px 12px;
+        resize:none; height:48px; outline:none; background:#fff;
+    }
+    .btn{
+        appearance:none; border:1px solid var(--line); background:#fff; color:#374151;
+        border-radius: 10px; padding: 12px 16px; cursor:pointer; font-weight:800;
+        box-shadow: var(--shadow-sm);
+    }
+    .btn:hover{  var(--ring); background: #fef3c7;}
+    .btn.primary{
+        border:0; color:#5b4705;
+        background: linear-gradient(180deg, #f7e2a0, #f0c95c);
+        box-shadow: 0 12px 24px rgba(233,191,60,.35);
+    }
+    .btn.primary:disabled{
+        background:#f3f4f6; color:#9ca3af; box-shadow:none; cursor:not-allowed;
+    }
+
+    /* Meta panel */
+    .panel{ display:grid; gap: 12px; }
+    .pill{
+        display:inline-flex; align-items:center; justify-content:center;
+        padding: 8px 12px; border-radius: 999px; font-weight:800;
+        background:#fff; border:1px solid var(--line); box-shadow: var(--shadow-sm);
+    }
+    .pill.green{ background: #ebfdf5; color:#065f46; border-color:#ccf5e7; }
+    .pill.yellow{ background: #fff7d6; color:#6a5408; border-color:#f3e6bf; }
+
+    .meta-block{ padding: 12px; border-top: 1px solid #f1f1f1; }
+    .meta-block h4{ margin:0 0 6px; font-size:14px; font-weight:900; color:#374151 }
+    .meta-text{ margin:0; color:#374151 }
+    .meta-empty{ color:var(--muted); font-style:italic }
+
+    /* Footer */
+    .footer{
+        display:flex; justify-content:space-between; align-items:center; gap:12px;
+        padding: 12px 0;
+    }
+    .error{ color:#b91c1c; font-weight:700 }
 </style>
 
-<div class="wrap">
+<div class="page">
     <div class="container">
-        <h1 class="h1">Evaluación ética inicial</h1>
-        <p class="sub">Conversemos; haré preguntas cortas y te avisaré cuando tengamos lo mínimo para analizar.</p>
 
-        <!-- Nombre siempre presente -->
-        <section class="card">
+        <!-- HERO -->
+        <section class="hero">
+            <div>
+                <h1>Evaluación ética inicial</h1>
+                <p>Conversemos; haré preguntas cortas y te avisaré cuando tengamos lo mínimo para analizar.</p>
+            </div>
+            <div style="display:flex; gap:8px; align-items:center;">
+        <span class="pill {ready || minInfoOK() ? 'green' : 'yellow'}">
+          {ready || minInfoOK() ? 'Listo para analizar' : 'Aún faltan datos'}
+        </span>
+            </div>
+        </section>
+
+        <!-- NOMBRE -->
+        <section class="card pad">
             <div class="label">Nombre de la evaluación</div>
             <input class="input" bind:value={nombre} placeholder="Ej.: Reportaje sobre acceso a la justicia en zonas rurales" />
             <div class="hint">Se autogenera al iniciar; puedes cambiarlo en cualquier momento.</div>
         </section>
 
-        <!-- Chat -->
-        <section class="chat">
-            <div class="chathead">🧭 Tutor ético</div>
-            <div id="chatbox" class="chatbody">
-                {#each messages as m}
-                    <div class="msg {m.role}">{m.content}</div>
-                {/each}
-            </div>
+        <!-- GRID principal -->
+        <div class="layout">
+            <!-- CHAT -->
+            <section class="card chat" style="overflow:hidden">
+                <div class="chathead"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true" style="vertical-align:middle; margin-right:6px;">
+                    <rect x="4" y="7" width="16" height="10" rx="4" fill="#e9bf3c" stroke="#374151" stroke-width="1.5"/>
+                    <rect x="9" y="2" width="6" height="4" rx="2" fill="#fff" stroke="#374151" stroke-width="1"/>
+                    <circle cx="8" cy="12" r="1.5" fill="#374151"/>
+                    <circle cx="16" cy="12" r="1.5" fill="#374151"/>
+                    <rect x="10" y="15" width="4" height="2" rx="1" fill="#374151"/>
+                    <line x1="2" y1="10" x2="4" y2="10" stroke="#374151" stroke-width="1"/>
+                    <line x1="20" y1="10" x2="22" y2="10" stroke="#374151" stroke-width="1"/>
+                </svg> Tutor IA</div>
+                <div id="chatbox" class="chatbody">
+                    {#each messages as m}
+                        <div class="msg {m.role}">{m.content}</div>
+                    {/each}
+                </div>
+                <div class="composer">
+          <textarea
+                  class="textarea"
+                  bind:value={input}
+                  placeholder="Escribe tu mensaje… (Shift+Enter para salto de línea)"
+                  on:keydown={(e) => { if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); } }}
+          />
+                    <button class="btn" on:click={send} disabled={!draftId || sending}>
+                        {sending ? 'Generando…' : 'Enviar'}
+                    </button>
+                </div>
+            </section>
 
-            <div class="composer">
-        <textarea
-                class="textarea"
-                bind:value={input}
-                placeholder="Escribe tu mensaje… (Shift+Enter para salto de línea)"
-                on:keydown={(e) => { if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); } }}
-        />
-                <button class="btn" on:click={send} disabled={!draftId || sending}>{sending ? 'Generando…' : 'Enviar'}</button>
-            </div>
-        </section>
+            <!-- PANEL META (no elimina nada del footer; es un refuerzo visual) -->
+            <aside class="card pad panel">
+                <div>
+                    <div class="label" style="margin:0 0 8px;">Estado del brief</div>
+                    <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                        <span class="pill {etapa ? 'green' : ''}">Etapa: {etapa ?? '—'}</span>
+                        <span class="pill {descripcion && descripcion.trim().length >= 20 ? 'green' : ''}">
+              Descripción {descripcion?.trim().length ? `(${descripcion.trim().length} chars)` : '(vacía)'}
+            </span>
+                        <span class="pill {herramientas ? 'green' : ''}">Herramientas: {herramientas || '—'}</span>
+                    </div>
+                </div>
 
-        <!-- Footer con estado y CTA -->
+                <div class="meta-block">
+                    <h4>Descripción</h4>
+                    {#if descripcion?.trim().length}
+                        <p class="meta-text">{descripcion}</p>
+                    {:else}
+                        <p class="meta-empty">Aún no hay descripción.</p>
+                    {/if}
+                </div>
+
+                <div class="meta-block">
+                    <h4>Herramientas</h4>
+                    {#if herramientas?.trim().length}
+                        <p class="meta-text">{herramientas}</p>
+                    {:else}
+                        <p class="meta-empty">Sin herramientas indicadas.</p>
+                    {/if}
+                </div>
+
+                <div class="meta-block">
+                    <h4>Consejo</h4>
+                    <p class="meta-text">
+                        {#if ready || minInfoOK()} ✅ Parece que ya está listo para el análisis. Cuando estés conforme, continúa para generar la evaluación ética.
+                        {:else} Necesito más información para preparar el análisis ético. Por favor, proporciona más detalles sobre tu proyecto.
+                        {/if}
+                        </p>
+                </div>
+            </aside>
+        </div>
+
+        <!-- FOOTER -->
         <div class="footer">
-            <div class="hint">
+            <!--div class="hint">
                 <b>Etapa:</b> {etapa ?? '—'} ·
                 <b>Descripción:</b> {(descripcion?.length ?? 0) > 0 ? `${descripcion}` : '—'} ·
                 <b>Herramientas:</b> {herramientas || '—'}
                 {#if ready || minInfoOK()} · ✅ Parece que ya está listo para el análisis.{/if}
-            </div>
+            </div-->
+            <div></div>
             <div style="display:flex; gap:8px; align-items:center;">
                 {#if error}<span class="error">{error}</span>{/if}
                 <button class="btn primary" on:click={continuar} disabled={sending || (!ready && !minInfoOK())}>
@@ -210,5 +356,6 @@ async function continuar(){
                 </button>
             </div>
         </div>
+
     </div>
 </div>

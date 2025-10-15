@@ -13,7 +13,8 @@ export const load: LayoutLoad = async ({ fetch, url }) => {
     // Lee el bearer guardado tras login (o como lo guardes tú)
     const token = localStorage.getItem('access_token');
 
-    // Si no hay token y no estamos ya en login público, redirige
+
+        // Si no hay token y no estamos ya en login público, redirige
     if (!token && !url.pathname.includes('/kitia-frontend/login')) {
         throw redirect(302, '/kitia-frontend/login/');
     }

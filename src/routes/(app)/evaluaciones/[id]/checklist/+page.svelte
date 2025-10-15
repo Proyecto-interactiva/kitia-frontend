@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { onMount, onDestroy } from 'svelte';
     import { page } from '$app/stores';
     import { base } from '$app/paths';
     import { API_BASE } from '$lib/config';
@@ -55,6 +55,35 @@
         }
     });
 
+    // Tips para amenizar la espera
+    const tips = [
+        'Verificando fuentes…',
+        'Midiendo impacto y riesgos…',
+        'Buscando sesgos…',
+        'Revisando transparencia y trazabilidad…',
+        'Organizando preguntas del pilar actual…'
+    ];
+
+    let fake = 0;          // progreso visual
+    let tipIndex = 0;      // índice de tip
+    let tick: any = null;  // timer
+
+    // Arranca/para el progreso fake
+    $: if (loading && !tick) {
+        fake = 0;
+        tipIndex = 0;
+        tick = setInterval(() => {
+            fake = Math.min(95, fake + Math.ceil(Math.random() * 7));
+            tipIndex = (tipIndex + 1) % tips.length;
+        }, 600);
+    }
+    $: if (!loading && tick) {
+        clearInterval(tick);
+        tick = null;
+        fake = 100; // remate bonito
+    }
+    onDestroy(() => { if (tick) clearInterval(tick); });
+
     function setChecked(pilarId: string, preguntaId: string, checked: boolean) {
         const pilar = pilares.find((p) => p.id === pilarId);
         if (!pilar) return;
@@ -95,7 +124,35 @@
 
 <section class="screen">
     {#if loading}
-        <div class="loading">Cargando checklist…</div>
+        <section class="loadingWrap" aria-busy="true" aria-live="polite">
+            <div class="loader">
+                <div class="pill">
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true">
+                        <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="orbit"></span>
+                </div>
+
+                <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow={fake}>
+                    <div class="bar" style={`width:${fake}%`}></div>
+                </div>
+
+                <div class="tip"><strong>{fake}%</strong> · {tips[tipIndex]}</div>
+            </div>
+
+            <div class="skeletonList">
+                {#each Array(3) as _, i}
+                    <div class="skeletonCard">
+                        <span class="skDot"></span>
+                        <div class="skLines">
+                            <span class="skLine"></span>
+                            <span class="skLine short"></span>
+                        </div>
+                        <span class="skBadge"></span>
+                    </div>
+                {/each}
+            </div>
+        </section>
     {:else if error}
         <p class="error">{error}</p>
     {:else}
@@ -244,4 +301,57 @@
 
     .loading{ text-align:center; padding:24px; color:var(--muted) }
     .error{ color:#b91c1c; text-align:center }
+    /* Loader vistoso + skeletons */
+    .loadingWrap{ max-width:980px; margin: 10px auto; text-align:center }
+    .loader{ display:grid; gap:10px; place-items:center; margin-bottom:12px }
+
+    .pill{
+        position:relative; width:64px; height:64px; border-radius:50%;
+        background: radial-gradient(circle at 30% 30%, #ffd978, var(--accent));
+        color:#fff; display:grid; place-items:center;
+        box-shadow: 0 14px 28px rgba(0,0,0,.18), inset 0 1px 0 #fff;
+        animation: bob 1.2s ease-in-out infinite;
+    }
+    .pill svg{ filter: drop-shadow(0 1px 0 rgba(0,0,0,.2)); }
+    .orbit{
+        position:absolute; inset:-6px; border-radius:50%;
+        border:3px solid rgba(255,255,255,.6); border-top-color: transparent;
+        animation: spin .9s linear infinite;
+    }
+
+    .progress{
+        width: min(680px, 92%); height:12px; border-radius:999px;
+        background:#f3f4f6; border:1px solid #e5e7eb; overflow:hidden;
+        box-shadow: inset 0 1px 0 #fff;
+    }
+    .bar{
+        height:100%; background: linear-gradient(90deg, #b9f0cf, #37b56f);
+        transition: width .35s ease;
+    }
+
+    .tip{ color:#374151; font-size:14px }
+    .tip strong{ font-weight:900; color:#065f46 }
+
+    /* Skeletons que parecen tarjetas del checklist */
+    .skeletonList{ display:grid; gap:12px; margin-top:8px }
+    .skeletonCard{
+        display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:12px;
+        background:#fff; border:1px solid var(--line); border-radius:18px; padding:12px 14px;
+        box-shadow: var(--shadow); position:relative; overflow:hidden;
+    }
+    .skeletonCard::after{
+        content:""; position:absolute; inset:0;
+        background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.65) 50%, transparent 80%);
+        transform: translateX(-100%); animation: shimmer 1.2s infinite;
+    }
+    .skDot{ width:28px; height:28px; border-radius:50%; background:#ffe08a; box-shadow: inset 0 1px 0 #fff; }
+    .skLines{ display:grid; gap:8px }
+    .skLine{ width:min(520px, 65vw); height:12px; border-radius:8px; background:#f0f0f0 }
+    .skLine.short{ width:min(280px, 40vw) }
+    .skBadge{ width:56px; height:20px; border-radius:999px; background:#eef2ff }
+
+    @keyframes spin{ to{ transform: rotate(360deg) } }
+    @keyframes bob{ 0%,100%{ transform: translateY(0) } 50%{ transform: translateY(-6px) } }
+    @keyframes shimmer{ 100%{ transform: translateX(100%) } }
+
 </style>
