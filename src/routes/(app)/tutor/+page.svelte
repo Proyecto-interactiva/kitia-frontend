@@ -97,7 +97,6 @@
         background: var(--cream);
         border-radius: 0; /* el contenedor ya viene del layout */
         padding: clamp(12px, 3.6vw, 28px);
-        height: 65vh;
     }
 
     .intro h1{
@@ -129,6 +128,8 @@
         cursor: pointer;
         transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
         outline: none;
+        align-content: center;
+        text-align: center;
     }
     .choice:hover{ transform: translateY(-2px); }
     .choice[aria-checked="true"]{ box-shadow: var(--shadow), var(--ring); border-color: #f0d88a; }
@@ -148,7 +149,7 @@
         box-shadow: 0 6px 14px rgba(0,0,0,.08);
     }
 
-    .body{ max-width: 36ch; }
+    .body{ padding: 0 10%; }
     .choice h3{
         margin: 0 0 8px;
         font-weight: 800;

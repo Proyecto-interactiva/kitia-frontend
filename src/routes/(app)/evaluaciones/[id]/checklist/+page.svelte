@@ -1,4 +1,3 @@
-<!-- src/routes/(app)/evaluacion/[id]/checklist/+page.svelte -->
 <script lang="ts">
     import { onMount } from 'svelte';
     import { page } from '$app/stores';
@@ -19,21 +18,36 @@
         descripcion: string;
         preguntas: Pregunta[];
     };
+    type Evaluacion = {
+        nombre: string;
+        descripcion: string;
+        etapa?: string;
+        pilares: Pilar[];
+    };
 
+    let evaluacion: Evaluacion = { nombre: '', descripcion: '', pilares: [] };
     let pilares: Pilar[] = [];
     let loading = true;
     let error = '';
 
     $: evaluacionId = $page.params.id;
 
+    let progreso = { comp: 0, total: 0 };
+    let puntos = 0;
+
+    $: {
+        const todas = pilares.flatMap(p => p.preguntas);
+        progreso = { comp: todas.filter(q => q.completada).length, total: todas.length };
+        puntos = todas.reduce((acc, q) => acc + (q.completada ? q.puntos : 0), 0);
+    }
+
+
     onMount(async () => {
         try {
-            // pedir a backend (que internamente usa Groq) los pilares + checklist
             const res = await fetch(`${API_BASE}/evaluaciones/${evaluacionId}/checklist`);
             if (!res.ok) throw new Error(await res.text());
-            pilares = await res.json();
-            console.log(pilares);
-            console.log('Evaluacion ID:', res);
+            evaluacion = await res.json();
+            pilares = evaluacion.pilares ?? [];
         } catch (e: any) {
             error = e.message;
         } finally {
@@ -41,89 +55,193 @@
         }
     });
 
-    function toggle(pilarId: string, preguntaId: string) {
-        const pilar = pilares.find(p => p.id === pilarId);
+    function setChecked(pilarId: string, preguntaId: string, checked: boolean) {
+        const pilar = pilares.find((p) => p.id === pilarId);
         if (!pilar) return;
-        const q = pilar.preguntas.find(q => q.id === preguntaId);
+        const q = pilar.preguntas.find((q) => q.id === preguntaId);
         if (!q) return;
-        q.completada = !q.completada;
-        // actualizar en backend
-        fetch(`${API_BASE}/evaluaciones/${evaluacionId}/preguntas/${preguntaId}`, {
-            method: 'PUT',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ completada: q.completada, notas: q.notas ?? '' })
-        });
-    }
 
-    function updateNotas(pilarId: string, preguntaId: string, notas: string) {
-        const pilar = pilares.find(p => p.id === pilarId);
-        if (!pilar) return;
-        const q = pilar.preguntas.find(q => q.id === preguntaId);
-        if (!q) return;
-        q.notas = notas;
+        q.completada = checked;
         fetch(`${API_BASE}/evaluaciones/${evaluacionId}/preguntas/${preguntaId}`, {
             method: 'PUT',
             headers: { 'content-type': 'application/json' },
-            body: JSON.stringify({ completada: q.completada, notas })
-        });
+            body: JSON.stringify({ completada: checked, notas: q.notas ?? '' })
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error('Error actualizando pregunta');
+                else {
+                    pilares = [...pilares];
+                }
+            })
+            .catch(() => {});
     }
 
     function progresoTotal() {
-        const todas = pilares.flatMap(p => p.preguntas);
-        const comp = todas.filter(q => q.completada).length;
+        const todas = pilares.flatMap((p) => p.preguntas);
+        const comp = todas.filter((q) => q.completada).length;
         return { comp, total: todas.length };
     }
-
     function puntosTotales() {
-        return pilares.flatMap(p => p.preguntas).reduce((acc, q) => acc + (q.completada ? q.puntos : 0), 0);
+        return pilares.flatMap((p) => p.preguntas).reduce((acc, q) => acc + (q.completada ? q.puntos : 0), 0);
+    }
+
+    function goBack() {
+        history.back();
+    }
+    function goResultados() {
+        window.location.href = `${base}/evaluaciones/${evaluacionId}/resultados`;
     }
 </script>
 
-<style>
-    .container{max-width:960px;margin:0 auto;padding:16px;}
-    .card{background:#fff;border:1px solid #e5e7eb;border-radius:16px;padding:16px;margin-bottom:16px;}
-    .pilar-title{font-weight:600;font-size:16px;margin-bottom:8px;}
-    .pregunta{border-top:1px solid #e5e7eb;padding:12px 0;}
-    .pregunta:first-child{border-top:none;}
-    .checkbox{margin-right:8px;}
-    .critica{color:#b91c1c;font-size:12px;font-weight:600;margin-left:6px;}
-    .nota{width:100%;margin-top:8px;border:1px solid #e5e7eb;border-radius:8px;padding:8px;font-size:13px;}
-    .progreso{margin:16px 0;padding:12px;border-radius:10px;background:#f9fafb;border:1px solid #e5e7eb;}
-    .badge{font-size:12px;border-radius:8px;padding:2px 6px;margin-left:6px;background:#f3f4f6;}
-</style>
-
-<div class="container">
-    <h1>Evaluación Ética</h1>
-
+<section class="screen">
     {#if loading}
-        <p>Cargando checklist…</p>
+        <div class="loading">Cargando checklist…</div>
     {:else if error}
-        <p style="color:#b91c1c">{error}</p>
+        <p class="error">{error}</p>
     {:else}
-        <div class="progreso">
-            <div>
-                Progreso: {progresoTotal().comp} de {progresoTotal().total} preguntas · Puntos: {puntosTotales()}
-            </div>
+        <header class="heading">
+            <h1>{'Evaluación ética inicial'}</h1>
+        </header>
+        <div class="card" style="max-width:980px; margin:0 auto 20px; padding:16px;">
+            <h2 style="margin:0 0 6px">{evaluacion.nombre}</h2>
+            {#if evaluacion.etapa}<p style="margin:0; color:var(--muted); font-size:14px"><strong>Etapa:</strong> {evaluacion.etapa}</p>{/if}
+            {#if evaluacion.descripcion}<p style="margin:0 0 6px; color:var(--muted)"><strong>Descripción:</strong>  {evaluacion.descripcion}</p>{/if}
         </div>
-        <button class="btn" style="background:#4338ca;color:#fff;border:none;cursor:pointer;"
-                on:click={() => window.location.href = `${base}/evaluaciones/${evaluacionId}/resultados`}>Ver resultados</button>
+        <hr />
+        <h1 style="text-align:center; margin: 20px auto 10px; font-size: clamp(20px,4vw,32px); max-width:980px;">
+            Checklist de Principios
+        </h1>
+        <p style="text-align:center; margin:0 auto 24px; color:
+            var(--muted); font-size: clamp(14px,2vw,18px); max-width:980px;">
+            Marca las acciones que ya has abordado en tu proyecto.
+        </p>
+        {#each pilares as p}
+            <section class="pilar">
+                <h2 class="pilar-title">{p.nombre}</h2>
+                {#if p.descripcion}<p class="pilar-desc">{p.descripcion}</p>{/if}
 
-        {#each pilares as pilar}
-            <div class="card">
-                <div class="pilar-title">{pilar.nombre} <span class="badge">{pilar.preguntas.filter(q => q.completada).length}/{pilar.preguntas.length}</span></div>
-                <p style="font-size:13px;color:#6b7280;margin-bottom:12px">{pilar.descripcion}</p>
+                <div class="list">
+                    {#each p.preguntas as q}
+                        <!-- Tarjeta con checkbox real -->
+                        <label class="q {q.completada ? 'done' : ''}">
+                            <input
+                                    class="check"
+                                    type="checkbox"
+                                    checked={q.completada}
+                                    on:change={(e) => setChecked(p.id, q.id, (e.currentTarget as HTMLInputElement).checked)}
+                            />
+                            <span class="tick" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                  <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
 
-                {#each pilar.preguntas as q}
-                    <div class="pregunta">
-                        <label style="display:flex;align-items:center;">
-                            <input type="checkbox" class="checkbox" checked={q.completada} on:change={() => toggle(pilar.id, q.id)} />
-                            <span>{q.texto}</span>
-                            {#if q.critica}<span class="critica">Crítica</span>{/if}
-                            <span class="badge">{q.puntos} pts</span>
+                            <span class="qtext">{q.texto}</span>
+                            <span class="meta">
+                {#if q.critica}Crítica · {/if}{q.puntos}p
+              </span>
                         </label>
-                    </div>
-                {/each}
-            </div>
+                    {/each}
+                </div>
+            </section>
         {/each}
+
+        <div class="summary">
+            Progreso: {progreso.comp}/{progreso.total} · Puntos: {puntos}
+        </div>
+
+        <nav class="actions">
+            <button class="back" type="button" on:click={goBack} aria-label="Volver">
+                <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </button>
+            <button class="cta" type="button" on:click={goResultados}>Continuar</button>
+        </nav>
     {/if}
-</div>
+</section>
+
+<style>
+    :root{
+        --cream:#f7efd2;
+        --ink:#2b2b2b;
+        --muted:#6b7280;
+        --card:#ffffff;
+        --line:#ece5d6;
+        --accent:#e9bf3c;      /* amarillo */
+        --accent-soft:#fff4cf; /* fondo del tick */
+        --shadow:0 14px 28px rgba(0,0,0,.12);
+        --ring:0 0 0 6px rgba(233,191,60,.18);
+        --radius:22px;
+    }
+
+    .screen{ background:var(--cream); padding: clamp(14px,3vw,24px); }
+    .heading{ text-align:center; margin: 8px auto 20px; max-width:980px; }
+    .heading h1{ font-weight:800; color:var(--ink); font-size: clamp(26px,4.8vw,48px); margin:0 0 10px }
+    .subtitle{ color:var(--ink); opacity:.85; margin:0; font-size: clamp(14px,2vw,18px) }
+
+    .pilar{ max-width:980px; margin: 18px auto 26px; }
+    .pilar-title{ font-size: clamp(18px,2.6vw,24px); font-weight:800; margin: 4px 0 6px; color:#3a3a3a }
+    .pilar-desc{ color: var(--muted); margin: 0 0 12px }
+
+    .list{ display:grid; gap:16px; }
+    /* Tarjeta */
+    .q{
+        display:grid;
+        grid-template-columns: auto 1fr auto;
+        align-items:center; gap:14px;
+        background: var(--card);
+        border:1px solid var(--line);
+        border-radius:18px;
+        padding: 14px 16px;
+        box-shadow: var(--shadow);
+        cursor: pointer;
+        transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+    }
+    .q:hover{ transform: translateY(-2px); }
+    .q.done{ border-color:#e6d48f; box-shadow: var(--shadow), var(--ring); }
+
+    /* Checkbox accesible + estilo */
+    .check{
+        position:absolute;
+        opacity:0;
+        width:1px; height:1px;
+        overflow:hidden; clip:rect(0 0 0 0);
+    }
+    .tick{
+        width: 30px; height: 30px; border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, #ffd978, var(--accent));
+        color: #fff; display:grid; place-items:center;
+        box-shadow: 0 6px 12px rgba(0,0,0,.12), inset 0 1px 0 #fff;
+    }
+    .tick svg{ opacity:0; transform: scale(.7); transition: opacity .12s ease, transform .12s ease; }
+
+    /* cuando está marcado, muestra ✓ */
+    .q.done .tick svg{ opacity:1; transform: scale(1); }
+
+    .qtext{ color:var(--ink); font-size: clamp(14px,1.9vw,16px); line-height:1.45 }
+    .meta{ color:var(--muted); font-size:12px; white-space:nowrap; margin-left:10px }
+
+    .summary{
+        max-width:980px; margin: 14px auto 0;
+        text-align:center; color:var(--muted); font-size:13px;
+    }
+
+    .actions{
+        max-width:980px; margin: 22px auto 0;
+        display:grid; grid-template-columns: auto 1fr auto; align-items:center; gap:12px;
+    }
+    .back{
+        width: 44px; height: 44px; border-radius:999px; border:0; background:#fff; color:#d39f1f;
+        box-shadow: var(--shadow); display:grid; place-items:center; cursor:pointer;
+    }
+    .cta{
+        padding: 12px 22px; border-radius: 999px; border:0;
+        background: linear-gradient(180deg, #f7e2a0, #f0c95c); color:#5b4705; font-weight:800;
+        box-shadow: 0 12px 24px rgba(233,191,60,.35); cursor:pointer;
+        justify-self:end;
+    }
+
+    .loading{ text-align:center; padding:24px; color:var(--muted) }
+    .error{ color:#b91c1c; text-align:center }
+</style>

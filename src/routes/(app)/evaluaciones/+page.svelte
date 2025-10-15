@@ -67,7 +67,7 @@
 
     <div class="tabs">
         <div class="tab active">Últimas evaluaciones</div>
-        <div class="tab">Pilares éticos</div>
+        <div class="tab">Principios éticos</div>
         <div class="tab">Herramientas IA</div>
         <div class="tab">KITMU</div>
     </div>
@@ -87,11 +87,12 @@
                 <div style="display:flex;justify-content:space-between;align-items:start;">
                     <div>
                         <h3>{ev.nombre}</h3>
-                        <p class="meta">Rol: {ev.rol} · Etapa: {ev.etapa}</p>
                         <p class="meta">Evaluado: { new Date(ev.createdAt).toLocaleDateString(
                             'es-CL',
                             { year: 'numeric', month: 'long', day: 'numeric' }
                         )}</p>
+                        <p class="meta">Etapa: {ev.etapa}</p>
+                        <p class="meta">Descripción: {ev.descripcion}</p>
                     </div>
 
                 </div>

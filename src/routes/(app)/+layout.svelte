@@ -15,9 +15,9 @@
     let kitmuBroken = false;
 
     const navLinks = [
-        { href: `${base}/inicio#bitacora`, label: 'Bitácora Ética', pill: 'rose' },
-        { href: `${base}/tutor#fastcheck`, label: 'Fast-check Ético', pill: 'yellow' },
-        { href: `${base}/tutoriales`, label: 'Tutoriales', pill: 'green' }
+        { href: `${base}/#bitacora`, label: 'Principios Éticos', pill: 'rose' },
+        { href: `${base}/tutor`, label: 'Tutor IA', pill: 'yellow' },
+        { href: `${base}/#tutoriales`, label: 'Tutoriales', pill: 'green' }
     ];
 
     async function logout() {
@@ -28,7 +28,7 @@
 </script>
 
 <header class="topbar">
-    <a href={`${base}/tutor`} class="brand" aria-label="Inicio">
+    <a href="{`${base}/tutor`}" class="brand" aria-label="Inicio">
         <img
                 src={IMG.logo}
                 alt="kitIA"
@@ -48,7 +48,7 @@
     </nav>
 
     <div class="actions">
-        <a href={`${base}/kitmu`} class="kitmu" aria-label="KitMU">
+        <a href="https://kitmu.cl/" class="kitmu" aria-label="KitMU" target="_blank" rel="noopener">
             <img
                     src={IMG.kitmu}
                     alt="KitMU"
@@ -60,9 +60,6 @@
             {/if}
         </a>
         <button class="logout" on:click={logout}>Cerrar sesión</button>
-        <button class="menu" aria-label="Abrir menú">
-            <span></span><span></span><span></span>
-        </button>
     </div>
 </header>
 
@@ -92,13 +89,18 @@
         --text:#1f2937;
         --muted:#6b7280;
 
-        --rose:#c86c8a;   /* pills rosado */
-        --yellow:#e9bf3c; /* pills amarillo */
-        --green:#37b56f;  /* pills verde */
+        --rose:#CC7A99;   /* pills rosado */
+        --yellow:#F2C243; /* pills amarillo */
+        --green:#66CC66;  /* pills verde */
 
         --radius: 22px;
         --shadow: 0 18px 40px rgba(0,0,0,.12);
         --ring: 0 0 0 3px rgba(0,0,0,.06);
+    }
+
+    main{
+        margin:0; padding:0; min-height:85%;
+        background: var(--cream);
     }
 
     .topbar{
@@ -124,9 +126,9 @@
         transition: transform .12s ease;
     }
     .pill:hover{ transform: translateY(-1px); }
-    .pill.rose{ background: linear-gradient(180deg, #e8b9c9, #e3a0b7); }
-    .pill.yellow{ background: linear-gradient(180deg, #f7e2a0, #f0c95c); }
-    .pill.green{ background: linear-gradient(180deg, #b9f0cf, #6ddc9e); }
+    .pill.rose{ background: linear-gradient(180deg, #CC7A99, #e3a0b7); }
+    .pill.yellow{ background: linear-gradient(180deg, #F2C243, #f0c95c); }
+    .pill.green{ background: linear-gradient(180deg, #66CC66, #6ddc9e); }
 
     .actions{ display:flex; align-items:center; gap:12px; }
     .kitmu img{ height:44px; display:block; }
@@ -149,7 +151,6 @@
 
     .container{
         max-width: 1140px; margin: 0 auto; padding: 24px 16px 48px;
-        background: var(--bg);
     }
 
     .footer{
@@ -159,6 +160,7 @@
         display:flex; justify-content:space-between; align-items:center; gap: 18px;
         border-top-left-radius: var(--radius);
         border-top-right-radius: var(--radius);
+        bottom:0;
     }
     .footer .seal{ display:flex; align-items:center; gap: 16px; }
     .footer img{ height:44px; width:auto; display:block }

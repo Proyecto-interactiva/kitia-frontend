@@ -63,14 +63,14 @@
         </a>
 
         <nav class="nav">
-            <a class="pill active" href="#bitacora">Pilares Éticos</a>
+            <a class="pill active" href="#bitacora">Principios Éticos</a>
             <a class="pill pill-yellow" href="#fastcheck">Tutor IA</a>
             <a class="pill pill-green" href="#tutoriales">Tutoriales</a>
         </nav>
 
         <div class="actions">
             {#if IMG.kitmu}
-                <a href="/kitmu" class="kitmu">
+                <a href="https://kitmu.cl/" class="kitmu" no-referrer aria-label="KitMU" target="_blank">
                     <img
                             src={IMG.kitmu}
                             alt="KitMU"
@@ -82,9 +82,6 @@
                     {/if}
                 </a>
             {/if}
-            <button class="menu" aria-label="Abrir menú">
-                <span></span><span></span><span></span>
-            </button>
         </div>
     </header>
 
@@ -92,7 +89,7 @@
         <!-- HERO: BITÁCORA ÉTICA -->
         <section id="bitacora" class="card hero-card">
             <div class="hero-copy">
-                <h1>Pilares Éticos</h1>
+                <h1>Principios Éticos</h1>
                 <p class="lead">
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                     eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -155,12 +152,16 @@
     <!-- FOOTER opcional con sellos -->
     <footer class="footer">
         <div class="seal">
-            {#if IMG.seal1}<img src={IMG.seal1} alt="Sello izquierda" />{/if}
-            <span>Kit móvil</span>
+            <img src={IMG.seal1} alt="Pontificia Universidad Católica de Chile" />
+            <div class="links">
+                <a href={`${base}/quienes-somos`}>Quienes somos</a>
+                <a href={`${base}/contacto`}>Contacto</a>
+                <a href={`${base}/kitmu`}>Kitmu</a>
+                <a href={`${base}/kit-movil`}>Kit móvil</a>
+            </div>
         </div>
         <div class="seal">
-            {#if IMG.seal2}<img src={IMG.seal2} alt="Sello derecha" />{/if}
-            <span>Facultad de Comunicaciones</span>
+            <img src={IMG.seal2} alt="Facultad de Comunicaciones" />
         </div>
     </footer>
 </div>
@@ -193,7 +194,7 @@
         font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Inter, Arial;
     }
 
-    .container{ max-width:1140px; margin: 24px auto 56px; padding: 0 16px; }
+    .container{ max-width: 100%; margin: 24px auto 0; padding: 0 0; }
 
     /* Header */
     .topbar{
@@ -219,17 +220,17 @@
         border: 1px solid rgba(0,0,0,.06);
     }
     .pill.active{
-        background: linear-gradient(180deg, #e8b9c9, #e3a0b7);
+        background: linear-gradient(180deg, #CC7A99, #e3a0b7);
         color: #fff; border: 0;
         box-shadow: 0 12px 24px rgba(200,108,138,.35);
     }
     .pill-yellow{
-        background: linear-gradient(180deg, #f7e2a0, #f0c95c);
+        background: linear-gradient(180deg, #F2C243, #f0c95c);
         color: #fff; border:0;
         box-shadow: 0 12px 24px rgba(233,191,60,.35);
     }
     .pill-green{
-        background: linear-gradient(180deg, #b9f0cf, #6ddc9e);
+        background: linear-gradient(180deg, #66CC66, #6ddc9e);
         color: #fff; border:0;
         box-shadow: 0 12px 24px rgba(55,181,111,.35);
     }
@@ -253,7 +254,7 @@
     /* Hero Bitácora */
     .hero-card{
         display:grid; grid-template-columns: 1.05fr 1fr;
-        gap:0; margin-top: 28px;
+        gap:0; margin: 5%; margin-top: 28px; background: var(--rose-500); padding:0;
     }
     .hero-copy{
         background: var(--rose-500);
@@ -267,7 +268,7 @@
     }
     .meta{ margin-top: 8px; opacity:.85 }
 
-    .hero-media{ position:relative; }
+    .hero-media{ position:relative; margin: 0; }
     .hero-media img{ width:100%; height:100%; object-fit:cover; }
     .play{
         position:absolute; right:22px; bottom:22px;
@@ -282,28 +283,32 @@
         margin-top: 28px;
         display:grid; grid-template-columns: 1.05fr 1fr; overflow:hidden;
         background: var(--yellow-500);
+        margin: 5%;
+        padding: 0;
     }
     .fast-copy{ color:#fff; padding: 40px 36px; }
     .fast-copy h2{ font-size: clamp(26px, 3.8vw, 42px); margin:0 0 10px }
-    .fast-copy p{ max-width: 50ch; font-size: clamp(15px, 2vw, 18px) }
+    .fast-copy p{ max-width: 50ch; font-size: clamp(25px, 2vw, 18px) }
     .btn-white{
         margin-top: 20px; display:inline-flex; align-items:center; justify-content:center;
         padding: 12px 22px; background:#fff; color:#a27200; font-weight:800; border-radius:999px;
-        text-decoration:none; box-shadow: 0 10px 24px rgba(0,0,0,.2);
+        text-decoration:none; box-shadow: 0 10px 24px rgba(0,0,0,.2); font-size:18px;
     }
+    .fast-media{margin:0;}
     .fast-media img{ width:100%; height:100%; object-fit:cover; }
 
     /* Tutoriales */
-    .tutoriales{ margin-top: 36px; background: var(--green-100); border-radius: 22px; padding: 26px; }
+    .tutoriales{ margin-top: 36px; background: var(--green-100); border-radius: 22px; padding: 5%; }
     .tutoriales h2{ color: var(--green-600); font-size: clamp(24px,3.4vw,36px); margin: 6px 6px 18px }
     .grid{
         display:grid; gap: 18px; grid-template-columns: repeat(2, minmax(0,1fr));
     }
-    .tcard{ background: #d7f0de; border-radius: 20px; box-shadow: 0 10px 26px rgba(0,0,0,.12); overflow:hidden; display:flex; flex-direction:column }
-    .timg img{ width:100%; height:210px; object-fit:cover }
-    .tbody{ padding: 18px; display:grid; grid-template-columns: 1fr auto; gap: 10px; align-items:start }
-    .tbody h3{ grid-column: 1 / -1; margin:0 0 6px; color:#167a3e; font-size: clamp(18px,2.6vw,24px) }
-    .tbody p{ grid-column: 1 / 2; margin:0; color:#2a6a44; max-width: 44ch }
+    .tcard{ background: #66CC66; border-radius: 20px; box-shadow: 0 10px 26px rgba(0,0,0,.12); overflow:hidden; display:flex; flex-direction:column }
+    .timg{ flex-shrink:0; margin: 0; margin-bottom: 20px;}
+    .timg img{ width:100%; height:230px; object-fit:cover }
+    .tbody{ padding: 18px; display:grid; grid-template-columns: 1fr auto; gap: 10px; align-items:start; border-radius: 20px; margin-top: -35px; background: #66CC66; z-index:1; }
+    .tbody h3{ grid-column: 1 / -1; margin:0 0 6px; color:#fff; font-size: clamp(18px,2.6vw,24px) }
+    .tbody p{ grid-column: 1 / 2; margin:0; color:#fff; max-width: 44ch }
     .play-mini{
         grid-column: 2 / 3; align-self:end; justify-self:end;
         width:42px; height:42px; border-radius:50%; background:#fff; display:grid; place-items:center;
@@ -313,12 +318,19 @@
 
     /* Footer */
     .footer{
-        margin: 30px auto 40px;
-        max-width:1140px; padding: 0 16px;
-        display:flex; align-items:center; justify-content:space-between; gap: 12px;
+        background: #0b2b66;
+        color: #e6eefc;
+        padding: 22px 16px;
+        display:flex; justify-content:space-between; align-items:center; gap: 18px;
+        border-top-left-radius: var(--radius);
+        border-top-right-radius: var(--radius);
+        bottom:0;
     }
-    .seal{ display:flex; align-items:center; gap: 10px; color:#0b3c74; font-weight:700 }
-    .seal img{ height:42px }
+    .footer .seal{ display:flex; align-items:center; gap: 16px; }
+    .footer img{ height:44px; width:auto; display:block }
+    .footer .links{ display:flex; gap:14px; flex-wrap:wrap }
+    .footer .links a{ color:#e6eefc; text-decoration:none; font-weight:600 }
+    .footer .links a:hover{ text-decoration:underline }
 
     /* Responsive */
     @media (max-width: 980px){
