@@ -1,6 +1,19 @@
 <!-- src/routes/(app)/tutor/+page.svelte -->
 <script lang="ts">
     import { base } from '$app/paths';
+    import {onMount} from "svelte";
+    import {API_BASE} from "$lib/config";
+
+    let test_ping = false;
+
+    onMount(() => {
+        if (!test_ping) {
+            fetch(`${API_BASE}/health`).then(res => {
+                test_ping = true;
+                console.log("Conectado al servidor");
+            });
+        }
+    });
 
     let choice: 'new' | 'history' | null = null;
 
