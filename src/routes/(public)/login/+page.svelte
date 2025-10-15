@@ -197,7 +197,7 @@
 
         <div class="foot">
             <span class="help">¿Olvidaste tu contraseña? <a class="link" href={`${base}/recuperar`}>Recupérala</a></span>
-            <span class="help">¿Problemas? <a class="link" href={`${base}/contacto`}>Contáctanos</a></span>
+            <span class="help">¿Problemas? <a class="link" href={`mailto:kitia.app@gmail.com`}>Contáctanos</a></span>
         </div>
     </section>
 </div>
