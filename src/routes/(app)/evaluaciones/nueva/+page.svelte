@@ -42,7 +42,7 @@
             const data = await res.json();
             draftId = data.draft_id;
             nombre = data.default_name || `Evaluación ${new Date().toLocaleDateString()}-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-            push('assistant', '👋 Hola, soy tu Tutor IA. Cuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras.\n\nPara orientarte mejor, estas son las etapas que suelo manejar:\n\t - Creación de Contenidos \n\t - Revisión y Validación \n\t - Publicación y Difusión \n\t -Posproducción \n\t -MonitoreoPlanificación.\n\n Te haré algunas preguntas y cuando creas que está todo lo que necesitas compartir puedes hacer clic en "Continuar con evaluación ética". ¡Empecemos!');
+            push('assistant', '👋 Hola, soy tu Tutor IA. Cuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras.\n\nPara orientarte mejor, estas son las etapas que suelo manejar:\n\t - Creación de Contenidos \n\t - Revisión y Validación \n\t - Publicación y Difusión \n\t -Posproducción \n\t -Monitoreo.\n\n Te haré algunas preguntas y cuando creas que está todo lo que necesitas compartir puedes hacer clic en "Continuar con evaluación ética". ¡Empecemos!');
         }catch(e:any){
             error = e?.message || 'No se pudo iniciar el chat.';
         }
