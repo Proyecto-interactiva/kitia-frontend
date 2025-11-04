@@ -15,8 +15,8 @@ export const load: LayoutLoad = async ({ fetch, url }) => {
 
 
         // Si no hay token y no estamos ya en login público, redirige
-    if (!token && !url.pathname.includes('/kitia-frontend/login')) {
-        throw redirect(302, '/kitia-frontend/login/');
+    if (!token && !url.pathname.includes('/login')) {
+        throw redirect(302, '/login/');
     }
 
     return {};

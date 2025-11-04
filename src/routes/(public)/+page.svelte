@@ -18,20 +18,20 @@
     let kitmuBroken = false;
     // Ajusta rutas si usas otros nombres/formatos de imagen
     const IMG = {
-        logo: "/kitia-frontend/img/logo-kitia.svg",     // opcional, si no existe mostrará texto
-        kitmu: "/kitia-frontend/img/logo-kitmu.svg",    // opcional
-        hero: "/kitia-frontend/img/hero.jpg",
-        people: "/kitia-frontend/img/people.jpg",
-        autonomia: "/kitia-frontend/img/pilares/autonomia.png",
-        equidad: "/kitia-frontend/img/pilares/equidad.png",
-        pluralismo: "/kitia-frontend/img/pilares/pluralismo.png",
-        privacidad: "/kitia-frontend/img/pilares/privacidad.png",
-        responsabilidad: "/kitia-frontend/img/pilares/responsabilidad.png",
-        seguridad: "/kitia-frontend/img/pilares/seguridad.png",
-        transparencia: "/kitia-frontend/img/pilares/transparencia.png",
-        veracidad: "/kitia-frontend/img/pilares/veracidad.png",
-        seal1: "/kitia-frontend/img/seal-left.svg",     // opcional (footer)
-        seal2: "/kitia-frontend/img/seal-right.svg"     // opcional (footer)
+        logo: base + "/img/logo-kitia.svg",     // opcional, si no existe mostrará texto
+        kitmu: base + "/img/logo-kitmu.svg",    // opcional
+        hero: base + "/img/hero.jpg",
+        people: base + "/img/people.jpg",
+        autonomia: base + "/img/pilares/autonomia.png",
+        equidad: base + "/img/pilares/equidad.png",
+        pluralismo: base + "/img/pilares/pluralismo.png",
+        privacidad: base + "/img/pilares/privacidad.png",
+        responsabilidad: base + "/img/pilares/responsabilidad.png",
+        seguridad: base + "/img/pilares/seguridad.png",
+        transparencia: base + "/img/pilares/transparencia.png",
+        veracidad: base + "/img/pilares/veracidad.png",
+        seal1: base + "/img/seal-left.svg",     // opcional (footer)
+        seal2: base + "/img/seal-right.svg"     // opcional (footer)
     };
 
     const tutoriales = [
@@ -141,7 +141,7 @@
                 <p>
                     Comienza una asesoría desde cero sobre tu proceso creativo usando iA.
                 </p>
-                <a class="btn-white" href="/kitia-frontend/tutor">Empezar</a>
+                <a class="btn-white" href="/tutor">Empezar</a>
             </div>
 
             <figure class="fast-media">

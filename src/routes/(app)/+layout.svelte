@@ -5,10 +5,10 @@
 
     // rutas de imágenes (ajústalas a tus archivos reales)
     const IMG = {
-        logo: '/kitia-frontend/img/logo-kitia.svg',
-        kitmu: '/kitia-frontend/img/logo-kitmu.svg',
-        sealLeft: '/kitia-frontend/img/seal-left.svg',
-        sealRight: '/kitia-frontend/img/seal-right.svg'
+        logo: '/img/logo-kitia.svg',
+        kitmu: '/img/logo-kitmu.svg',
+        sealLeft: '/img/seal-left.svg',
+        sealRight: '/img/seal-right.svg'
     };
 
     let logoBroken = false;
@@ -25,6 +25,9 @@
         localStorage.removeItem('access_token');
         window.location.href = `${base}/login`;
     }
+
+    // Obtener el nombre del usuario desde localStorage
+    let name = localStorage.getItem('email') || 'Usuario';
 </script>
 
 <header class="topbar">
@@ -59,6 +62,7 @@
                 <span class="kitmu-fallback">kit<span>mu</span></span>
             {/if}
         </a>
+        <span class="name" >{name}</span>
         <button class="logout" on:click={logout}>Cerrar sesión</button>
     </div>
 </header>
