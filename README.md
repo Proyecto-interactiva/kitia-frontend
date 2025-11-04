@@ -36,3 +36,14 @@ npm run build
 You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+
+
+Always add CNAME file for custom domain in the static folder for github pages deployment.
+
+```
+echo "kitia.cl" > build/CNAME
+```
+
+### remember to activate gmail via
+https://kitia-backend.onrender.com/oauth/google/start
+
