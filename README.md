@@ -37,6 +37,11 @@ You can preview the production build with `npm run preview`.
 
 > To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
 
+## Deploy to github pages
+```
+NODE_ENV=production npm run build
+npx gh-pages -d build
+```
 
 Always add CNAME file for custom domain in the static folder for github pages deployment.
 
