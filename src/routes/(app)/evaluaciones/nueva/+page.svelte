@@ -214,7 +214,7 @@
 
     /* Grid principal: chat + meta */
     .layout{
-        display:grid; gap: 16px; grid-template-columns: 1.2fr .8fr;
+        display:grid; gap: 16px; grid-template-columns: 1fr;
     }
     @media (max-width: 980px){ .layout{ grid-template-columns: 1fr; } }
 
@@ -234,13 +234,13 @@
         background: linear-gradient(180deg, #fff7d6, #fff);
         border-top-left-radius: 18px; border-top-right-radius: 18px;
     }
-    .chatbody{ padding:14px; overflow:auto; max-height:55vh; min-height:40vh; }
+    .chatbody{ padding:14px; overflow:auto; max-height:105vh; min-height:60vh; }
     .msg{
         max-width:78%; margin:10px 0; padding:12px 14px; border-radius: 16px;
         line-height:1.45; white-space:pre-wrap; box-shadow: var(--shadow-sm);
     }
     .assistant{ background:#fff; border:1px solid var(--line); color:#1f2937; border-top-left-radius:6px; }
-    .user{ background:#111827; color:#fff; margin-left:auto; border-top-right-radius:6px; }
+    .user{ background:#111827; color:#fff; margin-left:auto; border-top-right-radius:6px; max-width:55%; }
 
     .composer{
         display:flex; gap:10px; padding:12px; border-top:1px solid var(--line);
@@ -379,7 +379,7 @@
           <textarea
                   class="textarea"
                   bind:value={input}
-                  placeholder="Escribe tu mensaje… (Shift+Enter para salto de línea)"
+                  placeholder="Comenta de qué trata tu tarea para recibir una mejor guía… (Shift+Enter para salto de línea)"
                   on:keydown={(e) => { if(e.key === 'Enter' && !e.shiftKey){ e.preventDefault(); send(); } }}
           />
                     <button class="btn" on:click={send} disabled={!draftId || sending}>
@@ -389,7 +389,7 @@
             </section>
 
             <!-- PANEL META (no elimina nada del footer; es un refuerzo visual) -->
-            <aside class="card pad panel">
+            <!--aside class="card pad panel">
                 <div>
                     <div class="label" style="margin:0 0 8px;">Estado del brief</div>
                     <div style="display:flex; gap:8px; flex-wrap:wrap;">
@@ -427,7 +427,7 @@
                         {/if}
                         </p>
                 </div>
-            </aside>
+            </aside-->
         </div>
 
         <!-- FOOTER -->
