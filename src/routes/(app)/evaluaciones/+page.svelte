@@ -85,13 +85,13 @@
         --radius:22px;
     }
 
-    .page{ background: var(--cream); min-height: 100dvh; }
+    .page{ min-height: 100dvh; }
     .container{ max-width: 1120px; margin: 0 auto; padding: clamp(12px,3.6vw,26px); }
 
     /* HERO */
     .hero{
         display:grid; grid-template-columns: 1fr auto; align-items:center; gap:16px;
-        background:#fff; border:1px solid var(--line); border-radius: var(--radius);
+        background:#fff;
         padding: 18px; margin-bottom: 18px;
         position: relative; overflow: hidden;
     }
@@ -132,7 +132,7 @@
     .card{
         position: relative;
         background:#fff; border:1px solid var(--line); border-radius: var(--radius);
-        padding: 16px 16px 14px 16px; display:grid; gap: 12px; box-shadow: var(--shadow);
+        padding: 16px 16px 14px 16px; display:grid; gap: 12px; box-shadow: None;
         overflow:hidden;
     }
 

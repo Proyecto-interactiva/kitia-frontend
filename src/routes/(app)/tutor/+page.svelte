@@ -107,7 +107,6 @@
     }
 
     .intro {
-        background: var(--cream);
         border-radius: 0; /* el contenedor ya viene del layout */
         padding: clamp(12px, 3.6vw, 28px);
     }

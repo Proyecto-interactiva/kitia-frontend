@@ -22,26 +22,74 @@
         kitmu: "/kitia-frontend/img/logo-kitmu.svg",    // opcional
         hero: "/kitia-frontend/img/hero.jpg",
         people: "/kitia-frontend/img/people.jpg",
-        tutorial1: "/kitia-frontend/img/tutorial-1.jpg",
-        tutorial2: "/kitia-frontend/img/tutorial-2.jpg",
+        autonomia: "/kitia-frontend/img/pilares/autonomia.png",
+        equidad: "/kitia-frontend/img/pilares/equidad.png",
+        pluralismo: "/kitia-frontend/img/pilares/pluralismo.png",
+        privacidad: "/kitia-frontend/img/pilares/privacidad.png",
+        responsabilidad: "/kitia-frontend/img/pilares/responsabilidad.png",
+        seguridad: "/kitia-frontend/img/pilares/seguridad.png",
+        transparencia: "/kitia-frontend/img/pilares/transparencia.png",
+        veracidad: "/kitia-frontend/img/pilares/veracidad.png",
         seal1: "/kitia-frontend/img/seal-left.svg",     // opcional (footer)
         seal2: "/kitia-frontend/img/seal-right.svg"     // opcional (footer)
     };
 
     const tutoriales = [
         {
-            title: "¿Cómo citar una IAG en un trabajo?",
+            title: "Transparencia y explicabilidad",
             blurb:
-                "Aprende a generar respuestas que incluyan la norma de citación necesaria para agregar de manera correcta el contenido generado.",
-            img: IMG.tutorial1,
-            href: "/tutoriales/como-citar"
+                "Etiquetado visible, explicaciones claras, documentación para el público comprensibles.",
+            img: IMG.transparencia,
+            href: "https://kitmu.cl/kitia/transparencia-y-explicabilidad/"
         },
         {
-            title: "5 errores clásicos que invalidan el uso del material",
+            title: "Responsabilidad y rendición de cuentas",
             blurb:
-                "Aprende a generar respuestas que incluyan la norma de citación necesaria para agregar de manera correcta el contenido generado.",
-            img: IMG.tutorial2,
-            href: "/tutoriales/errores-clasicos"
+                "Protocolos de reporte de errores, asignación de responsables, trazabilidad.",
+            img: IMG.responsabilidad,
+            href: "https://kitmu.cl/kitia/responsabilidad-y-rendicion-de-cuentas/"
+        },
+        {
+            title: "Privacidad y protección de datos",
+            blurb:
+                "Minimización de datos, consentimiento, cumplimiento normativo.",
+            img: IMG.privacidad,
+            href: "https://kitmu.cl/kitia/privacidad-y-proteccion-de-datos/"
+        },
+        {
+            title: "No discriminación y equidad",
+            blurb:
+                "Verificación de diversidad algorítmica, monitoreo de burbujas de filtro comprensibles.",
+            img: IMG.equidad,
+            href: "https://kitmu.cl/kitia/no-discriminacion-y-equidad/"
+        },
+        {
+            title: "Seguridad y prevención de daños",
+            blurb:
+                "Etiquetado visible, explicaciones claras, documentación para el público comprensibles.",
+            img: IMG.seguridad,
+            href: "https://kitmu.cl/kitia/seguridad-y-prevencion-de-danos/"
+        },
+        {
+            title: "Autonomía humana y control editorial",
+            blurb:
+                "Supervisión humana para garantizar estándares de profesionalidad.",
+            img: IMG.autonomia,
+            href: "https://kitmu.cl/kitia/autonomia-humana-y-control-editorial/"
+        },
+        {
+            title: "Veracidad y lucha contra la desinformación",
+            blurb:
+                "Fact-checking automatizado, limitación de generación engañosa.",
+            img: IMG.veracidad,
+            href: "https://kitmu.cl/kitia/veracidad-y-lucha-contra-la-desinformacion/"
+        },
+        {
+            title: "Pluralismo y diversidad informativa",
+            blurb:
+                "Auditoría de sesgos, diversidad de datos, revisión ética.",
+            img: IMG.pluralismo,
+            href: "https://kitmu.cl/kitia/pluralismo-y-diversidad-informativa/"
         }
     ];
 </script>
@@ -62,11 +110,11 @@
             {/if}
         </a>
 
-        <nav class="nav">
+        <!--nav class="nav">
             <a class="pill active" href="#bitacora">Principios Éticos</a>
             <a class="pill pill-yellow" href="#fastcheck">Tutor IA</a>
             <a class="pill pill-green" href="#tutoriales">Tutoriales</a>
-        </nav>
+        </nav-->
 
         <div class="actions">
             {#if IMG.kitmu}
@@ -86,29 +134,6 @@
     </header>
 
     <main class="container">
-        <!-- HERO: BITÁCORA ÉTICA -->
-        <section id="bitacora" class="card hero-card">
-            <div class="hero-copy">
-                <h1>Principios Éticos</h1>
-                <p class="lead">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                    eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </p>
-
-                <a class="how" href="/bitacora/como-funciona">¿Cómo funciona?</a>
-                <div class="meta">2 min</div>
-            </div>
-
-            <figure class="hero-media">
-                <img src={IMG.people} alt="Personas conversando" />
-                <button class="play" aria-label="Reproducir presentación">
-                    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-                        <path d="M8 5v14l11-7Z" />
-                    </svg>
-                </button>
-            </figure>
-        </section>
-
         <!-- FAST CHECK -->
         <section id="fastcheck" class="card fast-card">
             <div class="fast-copy">
@@ -125,8 +150,8 @@
         </section>
 
         <!-- TUTORIALES -->
-        <section id="tutoriales" class="tutoriales">
-            <h2>Tutoriales</h2>
+        <section id="pilares" class="tutoriales">
+            <h2>Pilares Éticos</h2>
 
             <div class="grid">
                 {#each tutoriales as t}
@@ -137,7 +162,7 @@
                         <div class="tbody">
                             <h3>{t.title}</h3>
                             <p>{t.blurb}</p>
-                            <a class="play-mini" href={t.href} aria-label="Abrir tutorial">
+                            <a class="play-mini" href={t.href} aria-label="Abrir tutorial" target="_blank" rel="noopener">
                                 <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
                                     <path d="M8 5v14l11-7Z"/>
                                 </svg>
@@ -201,7 +226,7 @@
         position: sticky; top:0; z-index:10;
         display:flex; align-items:center; justify-content:space-between;
         gap: 12px;
-        padding: 14px 16px;
+        padding: 14px 24px;
         background: #fff;
         border-bottom: 1px solid #e8eaee;
     }
@@ -283,7 +308,7 @@
         margin-top: 28px;
         display:grid; grid-template-columns: 1.05fr 1fr; overflow:hidden;
         background: var(--yellow-500);
-        margin: 5%;
+        margin: 5% 15%;
         padding: 0;
     }
     .fast-copy{ color:#fff; padding: 40px 36px; }
@@ -298,14 +323,18 @@
     .fast-media img{ width:100%; height:100%; object-fit:cover; }
 
     /* Tutoriales */
-    .tutoriales{ margin-top: 36px; background: var(--green-100); border-radius: 22px; padding: 5%; }
+    .tutoriales{ margin-top: 36px; background: var(--green-100); border-radius: 22px; padding: 5% 10%; }
     .tutoriales h2{ color: var(--green-600); font-size: clamp(24px,3.4vw,36px); margin: 6px 6px 18px }
     .grid{
-        display:grid; gap: 18px; grid-template-columns: repeat(2, minmax(0,1fr));
+        display:grid; gap: 18px; grid-template-columns: repeat(4, minmax(0,1fr));
     }
     .tcard{ background: #66CC66; border-radius: 20px; box-shadow: 0 10px 26px rgba(0,0,0,.12); overflow:hidden; display:flex; flex-direction:column }
-    .timg{ flex-shrink:0; margin: 0; margin-bottom: 20px;}
-    .timg img{ width:100%; height:230px; object-fit:cover }
+    .timg{ flex-shrink:0; margin: 0; margin-bottom: 20px;background: aliceblue;}
+    .timg img{ /*width:100%; height:230px;*/ width: 80px;
+        height: 150px;
+        object-fit: contain;
+        margin: 0 auto;
+        padding: 10px; }
     .tbody{ padding: 18px; display:grid; grid-template-columns: 1fr auto; gap: 10px; align-items:start; border-radius: 20px; margin-top: -35px; background: #66CC66; z-index:1; }
     .tbody h3{ grid-column: 1 / -1; margin:0 0 6px; color:#fff; font-size: clamp(18px,2.6vw,24px) }
     .tbody p{ grid-column: 1 / 2; margin:0; color:#fff; max-width: 44ch }
@@ -338,5 +367,8 @@
         .hero-card, .fast-card{ grid-template-columns: 1fr }
         .hero-media img, .fast-media img{ height: 240px }
         .footer{ flex-direction:column; gap:8px }
+        .grid{
+            display:grid; gap: 18px; grid-template-columns: repeat(1, minmax(0,1fr));
+        }
     }
 </style>

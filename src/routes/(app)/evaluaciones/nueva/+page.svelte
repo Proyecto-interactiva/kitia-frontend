@@ -130,6 +130,52 @@
             error = e?.message || 'Error al crear la evaluación.';
         }
     }
+
+    // --- Popup "100% alcanzado" (mostrar una sola vez por draft) ---
+    let showCongrats = false;
+    let hasShownOnce = false;
+
+    const POPUP_KEY = (id: string | null) => `ethics_ready_popup_${id ?? 'new'}`;
+
+    // Cargar bandera desde localStorage
+    $: if (draftId && !hasShownOnce) {
+        hasShownOnce = localStorage.getItem(POPUP_KEY(draftId)) === '1';
+    }
+
+    // ABRIR solo una vez: en el mismo momento que lo abrimos, marcamos como visto
+    $: if ((ready || minInfoOK()) && draftId && !hasShownOnce && !showCongrats) {
+        showCongrats = true;
+        hasShownOnce = true;                                   // <<< clave
+        localStorage.setItem(POPUP_KEY(draftId), '1');
+    }
+
+    // Bloquear scroll cuando el modal está visible
+    $: {
+        if (typeof document !== 'undefined') {
+            document.body.style.overflow = showCongrats ? 'hidden' : '';
+        }
+    }
+
+    // Cerrar
+    function closeCongrats() {
+        showCongrats = false;
+        hasShownOnce = true;                                   // <<< evita reabrir
+        if (draftId) localStorage.setItem(POPUP_KEY(draftId), '1');
+    }
+
+    async function goToResults() {
+        await continuar();
+        closeCongrats();
+    }
+
+    // (Opcional) cerrar con ESC
+    if (typeof window !== 'undefined') {
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && showCongrats) closeCongrats();
+        });
+    }
+
+
 </script>
 
 <style>
@@ -148,13 +194,13 @@
         --radius:22px;
     }
 
-    .page{ min-height:100dvh; background: var(--cream); color:var(--ink); }
+    .page{ min-height:100dvh; color:var(--ink); }
     .container{ max-width:1100px; margin:0 auto; padding: clamp(12px,3.6vw,26px); display:grid; gap:14px; }
 
     /* Hero */
     .hero{
-        background:#fff; border:1px solid var(--line); border-radius: var(--radius);
-        padding: 18px; box-shadow: var(--shadow);
+        background:#fff;
+        padding: 18px;
         display:flex; justify-content:space-between; align-items:center; gap:12px;
     }
     .hero h1{ margin:0; font-weight:900; font-size: clamp(22px,4.2vw,36px) }
@@ -163,9 +209,8 @@
     /* Cards base */
     .card{
         background:#fff; border:1px solid var(--line); border-radius: 18px;
-        box-shadow: var(--shadow);
     }
-    .pad{ padding: 14px; }
+    .pad{ padding: 14px;border: 0; }
 
     /* Grid principal: chat + meta */
     .layout{
@@ -242,6 +287,51 @@
         padding: 12px 0;
     }
     .error{ color:#b91c1c; font-weight:700 }
+
+    /* ===== Popup "100% alcanzado" ===== */
+    .modal-overlay{
+        position: fixed; inset: 0;
+        background: rgba(0,0,0,.45);
+        display: grid; place-items: center;
+        z-index: 9999;
+    }
+    .modal-card{
+        width: min(560px, 92vw);
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 18px 40px rgba(0,0,0,.18);
+        padding: 18px 20px;
+        position: relative;
+    }
+    .modal-head{
+        display:flex; align-items:center; gap:12px; margin-bottom:8px;
+    }
+    .modal-icon{
+        width:42px; height:42px; border-radius:10px;
+        background:#fff3c4; display:grid; place-items:center; color:#e9bf3c;
+        box-shadow: inset 0 1px 0 #fff;
+    }
+    .modal-title{
+        font-size: clamp(20px, 3.6vw, 28px);
+        font-weight: 900; margin:0; color:#111827;
+    }
+    .modal-body{
+        color:#111827; font-size: 16px; margin: 6px 0 18px;
+    }
+    .modal-actions{
+        display:flex; justify-content:flex-end; gap:14px; align-items:center;
+    }
+    .btn-ghost{
+        background: transparent; border:0; font-weight:800; color:#111827;
+        padding: 12px 18px; border-radius: 999px; cursor:pointer;
+    }
+    .btn-primary{
+        background:#0b1240; color:#fff; border:0; cursor:pointer;
+        padding: 12px 28px; border-radius: 999px; font-weight:800;
+        box-shadow: 0 8px 20px rgba(11,18,64,.35);
+    }
+    .btn-primary:active{ transform: translateY(1px); }
+
 </style>
 
 <div class="page">
@@ -358,4 +448,31 @@
         </div>
 
     </div>
+    {#if showCongrats}
+        <div class="modal-overlay" on:click={closeCongrats} role="dialog" aria-modal="true" aria-labelledby="congrats-title">
+            <div class="modal-card" on:click|stopPropagation>
+                <div class="modal-head">
+                    <div class="modal-icon" aria-hidden="true">
+                        <!-- carita/robot simple -->
+                        <svg viewBox="0 0 24 24" width="26" height="26">
+                            <rect x="3" y="7" width="18" height="12" rx="6" fill="currentColor" opacity=".9"/>
+                            <rect x="9" y="3" width="6" height="4" rx="2" fill="#0b1240" opacity=".08"/>
+                            <circle cx="9" cy="13" r="1.6" fill="#0b1240"/>
+                            <circle cx="15" cy="13" r="1.6" fill="#0b1240"/>
+                        </svg>
+                    </div>
+                    <h2 id="congrats-title" class="modal-title">¡100% alcanzado!</h2>
+                </div>
+
+                <p class="modal-body">¿Listo para ir a revisar el resultado de tu evaluación?</p>
+
+                <div class="modal-actions">
+                    <button class="btn-ghost" type="button" on:click={closeCongrats}>Volver</button>
+                    <button class="btn-primary" type="button" on:click={goToResults}>Sí</button>
+                </div>
+            </div>
+        </div>
+    {/if}
+
+
 </div>

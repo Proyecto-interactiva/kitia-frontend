@@ -15,9 +15,9 @@
     let kitmuBroken = false;
 
     const navLinks = [
-        { href: `${base}/#bitacora`, label: 'Principios Éticos', pill: 'rose' },
+        { href: `${base}`, label: 'Inicio', pill: 'rose' },
         { href: `${base}/tutor`, label: 'Tutor IA', pill: 'yellow' },
-        { href: `${base}/#tutoriales`, label: 'Tutoriales', pill: 'green' }
+        { href: `${base}/#pilares`, label: 'Pilares', pill: 'green' }
     ];
 
     async function logout() {
@@ -100,7 +100,7 @@
 
     main{
         margin:0; padding:0; min-height:85%;
-        background: var(--cream);
+        background: var(--card);
     }
 
     .topbar{
@@ -122,7 +122,6 @@
         display:inline-flex; align-items:center; justify-content:center;
         padding: 10px 16px; border-radius: 999px; font-weight:800; text-decoration:none;
         color:#fff; border:0;
-        box-shadow: 0 12px 26px rgba(0,0,0,.12);
         transition: transform .12s ease;
     }
     .pill:hover{ transform: translateY(-1px); }
@@ -138,7 +137,7 @@
     .logout{
         background: #fff; border: 1px solid #e5e7eb; border-radius: 999px;
         padding: 9px 14px; font-weight:700; color:#374151; cursor:pointer;
-        box-shadow: var(--ring);
+
     }
     .logout:hover{ background:#f9fafb }
 

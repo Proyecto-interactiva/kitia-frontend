@@ -160,17 +160,17 @@
             <h1>{'Evaluación ética inicial'}</h1>
         </header>
         <div class="card" style="max-width:980px; margin:0 auto 20px; padding:16px;">
-            <h2 style="margin:0 0 6px">{evaluacion.nombre}</h2>
+            <h2 style="margin:0 0 6px">Nombre: {evaluacion.nombre}</h2>
             {#if evaluacion.etapa}<p style="margin:0; color:var(--muted); font-size:14px"><strong>Etapa:</strong> {evaluacion.etapa}</p>{/if}
             {#if evaluacion.descripcion}<p style="margin:0 0 6px; color:var(--muted)"><strong>Descripción:</strong>  {evaluacion.descripcion}</p>{/if}
         </div>
         <hr />
         <h1 style="text-align:center; margin: 20px auto 10px; font-size: clamp(20px,4vw,32px); max-width:980px;">
-            Checklist de Principios
+            Revisión de Pilares Éticos
         </h1>
         <p style="text-align:center; margin:0 auto 24px; color:
             var(--muted); font-size: clamp(14px,2vw,18px); max-width:980px;">
-            Marca las acciones que ya has abordado en tu proyecto.
+            Para continuar con el  análisis y guiarte mejor en el cumplimiento ético, necesitamos que nos cuentes verazmente si tu trabajo cumple con los siguientes postulados:
         </p>
         {#each pilares as p}
             <section class="pilar">
@@ -232,7 +232,8 @@
         --radius:22px;
     }
 
-    .screen{ background:var(--cream); padding: clamp(14px,3vw,24px); }
+    .card{border: None}
+    .screen{  padding: clamp(14px,3vw,24px); }
     .heading{ text-align:center; margin: 8px auto 20px; max-width:980px; }
     .heading h1{ font-weight:800; color:var(--ink); font-size: clamp(26px,4.8vw,48px); margin:0 0 10px }
     .subtitle{ color:var(--ink); opacity:.85; margin:0; font-size: clamp(14px,2vw,18px) }
@@ -248,15 +249,14 @@
         grid-template-columns: auto 1fr auto;
         align-items:center; gap:14px;
         background: var(--card);
-        border:1px solid var(--line);
+        border-bottom:1px solid var(--line);
         border-radius:18px;
         padding: 14px 16px;
-        box-shadow: var(--shadow);
         cursor: pointer;
         transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
     }
     .q:hover{ transform: translateY(-2px); }
-    .q.done{ border-color:#e6d48f; box-shadow: var(--shadow), var(--ring); }
+    .q.done{ }
 
     /* Checkbox accesible + estilo */
     .check{
@@ -265,16 +265,70 @@
         width:1px; height:1px;
         overflow:hidden; clip:rect(0 0 0 0);
     }
+    /* Base del tick: círculo neutro */
     .tick{
         width: 30px; height: 30px; border-radius: 50%;
-        background: radial-gradient(circle at 30% 30%, #ffd978, var(--accent));
-        color: #fff; display:grid; place-items:center;
-        box-shadow: 0 6px 12px rgba(0,0,0,.12), inset 0 1px 0 #fff;
+        display: grid; place-items: center;
+        position: relative;
+        background: #fff;
+        border: 2px solid #d6d3ce;            /* borde neutro */
+        transition: background .18s, border-color .18s, box-shadow .18s, transform .12s;
     }
-    .tick svg{ opacity:0; transform: scale(.7); transition: opacity .12s ease, transform .12s ease; }
 
-    /* cuando está marcado, muestra ✓ */
-    .q.done .tick svg{ opacity:1; transform: scale(1); }
+    /* El ícono ✓ oculto por defecto */
+    .tick svg{
+        opacity: 0;
+        transform: scale(.7);
+        transition: opacity .12s ease, transform .12s ease;
+    }
+
+    /* ---------- Estado UNCHECKED (hint con círculos) ---------- */
+    .q:not(.done) .tick{
+        border: 2px dashed #d6d3ce;           /* anillo punteado */
+    }
+
+    .q:not(.done) .tick::before{
+        content: "";
+        position: absolute; inset: 5px;
+        border: 2px dashed #e7e2d6;           /* segundo anillo interior */
+        border-radius: 50%;
+    }
+
+    /* pulso suave para sugerir “clickeable”
+    .q:not(.done) .tick::after{
+        content: "";
+        position: absolute; inset: -6px;
+        border-radius: 50%;
+        box-shadow: 0 0 0 0 rgba(233,191,60,.0);
+        animation: pulse 1.6s ease-out infinite;
+    }*/
+
+    .q:not(.done):hover .tick{ border-color:#c7c2b8; }
+
+    /* Respeta accesibilidad: si el usuario reduce animaciones, no pulses */
+    @media (prefers-reduced-motion: reduce){
+        .q:not(.done) .tick::after{ animation: none; }
+    }
+
+    @keyframes pulse{
+        0%   { box-shadow: 0 0 0 0   rgba(233,191,60,.45); }
+        70%  { box-shadow: 0 0 0 8px rgba(233,191,60,0); }
+        100% { box-shadow: 0 0 0 0   rgba(233,191,60,0); }
+    }
+
+    /* ---------- Estado CHECKED (como lo tenías) ---------- */
+    .q.done .tick{
+        background: radial-gradient(circle at 30% 30%, #ffd978, var(--accent));
+        box-shadow: 0 6px 12px rgba(0,0,0,.12), inset 0 1px 0 #fff;
+        border: 0;                             /* sin anillo cuando está marcado */
+    }
+    .q.done .tick svg{ opacity: 1; transform: scale(1); }
+
+    /* Accesibilidad al tab: deja un ring cuando el checkbox recibe foco */
+    .q:focus-within{
+        outline: 0;
+    }
+
 
     .qtext{ color:var(--ink); font-size: clamp(14px,1.9vw,16px); line-height:1.45 }
     .meta{ color:var(--muted); font-size:12px; white-space:nowrap; margin-left:10px }
