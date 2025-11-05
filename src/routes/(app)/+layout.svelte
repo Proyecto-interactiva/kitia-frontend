@@ -15,7 +15,7 @@
     let kitmuBroken = false;
 
     const navLinks = [
-        { href: `${base}`, label: 'Inicio', pill: 'rose' },
+        { href: `${base}/`, label: 'Inicio', pill: 'rose' },
         { href: `${base}/tutor`, label: 'Tutor IA', pill: 'yellow' },
         { href: `${base}/#pilares`, label: 'Pilares', pill: 'green' }
     ];
