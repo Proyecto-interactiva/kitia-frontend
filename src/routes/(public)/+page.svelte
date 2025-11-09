@@ -163,11 +163,6 @@
                     Proyecto que busca <b>promover el uso ético de herramientas</b>
                     digitales e inteligencia artificial en la creación de contenidos.
                 </p>
-                <p class="lead lead-sm">
-                    Es un <b>subproducto de Kitmu</b>, plataforma web pública con manuales para
-                    conocer y aprender herramientas digitales, funcionales a la creación
-                    de contenido periodístico.
-                </p>
 
                 <p class="lead lead-sm">
                     Kitia consta de dos recursos principales: un <b>compendio de tutoriales</b> sobre el uso de herramientas de IA y un <b>tutor ético</b> que asesora a los usuarios en la aplicación de principios éticos en sus procesos creativos.
