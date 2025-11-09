@@ -177,7 +177,7 @@
         <!-- FAST CHECK -->
         <section id="fastcheck" class="card fast-card">
             <div class="fast-copy">
-                <h2>Tutor IA</h2>
+                <h2>Tutor Ético</h2>
                 <p>
                     Comienza una asesoría desde cero sobre tu proceso creativo usando iA.
                 </p>
