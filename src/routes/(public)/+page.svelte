@@ -283,7 +283,7 @@
             </div>
 
             <div class="vmore">
-                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/">Ver más</a>
+                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/" target="_blank">Ver más</a>
             </div>
         </section>
 
@@ -295,10 +295,10 @@
         <div class="seal">
             <img src={IMG.seal1} alt="Pontificia Universidad Católica de Chile" />
             <div class="links">
-                <a href={`https://kitmu.cl/sobre-kitia`}>Sobre KitIA</a>
+                <a href={`https://kitmu.cl/sobre-kitia`} target="_blank">Sobre KitIA</a>
                 <a href={`mailto:kitia.app@gmail.com`}>Contacto</a>
-                <a href={`https://kitmu.cl`}>Kitmu</a>
-                <a href={`https://kitmovil.com`}>Kit móvil</a>
+                <a href={`https://kitmu.cl`} target="_blank">Kitmu</a>
+                <a href={`https://kitmovil.com`} target="_blank">Kit móvil</a>
             </div>
         </div>
         <div class="seal">
