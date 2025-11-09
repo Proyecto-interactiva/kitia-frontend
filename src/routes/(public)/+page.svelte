@@ -31,7 +31,8 @@
         transparencia: base + "/img/pilares/transparencia.png",
         veracidad: base + "/img/pilares/veracidad.png",
         seal1: base + "/img/seal-left.svg",     // opcional (footer)
-        seal2: base + "/img/seal-right.svg"     // opcional (footer)
+        seal2: base + "/img/seal-right.svg",     // opcional (footer)
+        stages: base + "/img/diagrama-etapas.svg",
     };
 
     const tutoriales = [
@@ -40,58 +41,76 @@
             blurb:
                 "Etiquetado visible, explicaciones claras, documentación para el público comprensibles.",
             img: IMG.transparencia,
-            href: "https://kitmu.cl/kitia/transparencia-y-explicabilidad/"
+            href: "https://kitmu.cl/sobre-kitia/transparencia-y-explicabilidad/"
         },
         {
             title: "Responsabilidad y rendición de cuentas",
             blurb:
                 "Protocolos de reporte de errores, asignación de responsables, trazabilidad.",
             img: IMG.responsabilidad,
-            href: "https://kitmu.cl/kitia/responsabilidad-y-rendicion-de-cuentas/"
+            href: "https://kitmu.cl/sobre-kitia/responsabilidad-y-rendicion-de-cuentas/"
         },
         {
             title: "Privacidad y protección de datos",
             blurb:
                 "Minimización de datos, consentimiento, cumplimiento normativo.",
             img: IMG.privacidad,
-            href: "https://kitmu.cl/kitia/privacidad-y-proteccion-de-datos/"
+            href: "https://kitmu.cl/sobre-kitia/privacidad-y-proteccion-de-datos/"
         },
         {
             title: "No discriminación y equidad",
             blurb:
                 "Verificación de diversidad algorítmica, monitoreo de burbujas de filtro comprensibles.",
             img: IMG.equidad,
-            href: "https://kitmu.cl/kitia/no-discriminacion-y-equidad/"
+            href: "https://kitmu.cl/sobre-kitia/no-discriminacion-y-equidad/"
         },
         {
             title: "Seguridad y prevención de daños",
             blurb:
                 "Etiquetado visible, explicaciones claras, documentación para el público comprensibles.",
             img: IMG.seguridad,
-            href: "https://kitmu.cl/kitia/seguridad-y-prevencion-de-danos/"
+            href: "https://kitmu.cl/sobre-kitia/seguridad-y-prevencion-de-danos/"
         },
         {
             title: "Autonomía humana y control editorial",
             blurb:
                 "Supervisión humana para garantizar estándares de profesionalidad.",
             img: IMG.autonomia,
-            href: "https://kitmu.cl/kitia/autonomia-humana-y-control-editorial/"
+            href: "https://kitmu.cl/sobre-kitia/autonomia-humana-y-control-editorial/"
         },
         {
             title: "Veracidad y lucha contra la desinformación",
             blurb:
                 "Fact-checking automatizado, limitación de generación engañosa.",
             img: IMG.veracidad,
-            href: "https://kitmu.cl/kitia/veracidad-y-lucha-contra-la-desinformacion/"
+            href: "https://kitmu.cl/sobre-kitia/veracidad-y-lucha-contra-la-desinformacion/"
         },
         {
             title: "Pluralismo y diversidad informativa",
             blurb:
                 "Auditoría de sesgos, diversidad de datos, revisión ética.",
             img: IMG.pluralismo,
-            href: "https://kitmu.cl/kitia/pluralismo-y-diversidad-informativa/"
+            href: "https://kitmu.cl/sobre-kitia/pluralismo-y-diversidad-informativa/"
         }
     ];
+
+    const videos = [
+        {
+            title: "Runway",
+            blurb:
+                "Generación  y edición de videos o imágenes con IA. Crea contenido visual de alta calidad utilizando modelos avanzados de inteligencia artificial.",
+            img: "https://d3phaj0sisr2ct.cloudfront.net/site/content/images/Gen-4card.jpg",                // reemplaza por tu thumbnail
+            href: "https://kitmu.cl/kitia/edicion-videos-kitia/runway/"      // reemplaza por tu ruta real
+        },
+        {
+            title: "NotebookLM",
+            blurb:
+                "Asistente de IA de Google para organizar y generar contenido a partir de tus notas. Optimiza tu flujo de trabajo creativo con esta herramienta innovadora.",
+            img: "https://www.cnet.com/a/img/resize/1e78e1dcc8b6a2f6d722769fdebe2f669e9dbfad/hub/2025/09/17/951e8139-306f-47a7-bcc5-00f253eeaeb7/notebooklm-audio-overview-play-controls.jpg?auto=webp&fit=crop&height=675&width=1200",              // reemplaza por tu thumbnail
+            href: "https://kitmu.cl/kitia/apuntes-kitia/notebooklm/"
+        }
+    ];
+
 </script>
 
 <div class="page">
@@ -134,6 +153,32 @@
     </header>
 
     <main class="container">
+        <!-- HERO: SOBRE KITIA -->
+        <section id="bitacora" class="card hero-card">
+            <div class="hero-copy ">
+                <img src={base + "/img/kitia-cols.svg"} alt="Ilustración KitIA" class="kitia-banner" />
+
+                <h1>Sobre KitIA</h1>
+                <p class="lead">
+                    Proyecto que busca <b>promover el uso ético de herramientas</b>
+                    digitales e inteligencia artificial en la creación de contenidos.
+                </p>
+                <p class="lead lead-sm">
+                    Es un <b>subproducto de Kitmu</b>, plataforma web pública con manuales para
+                    conocer y aprender herramientas digitales, funcionales a la creación
+                    de contenido periodístico.
+                </p>
+
+                <p class="lead lead-sm">
+                    Kitia consta de dos recursos principales: un <b>compendio de tutoriales</b> sobre el uso de herramientas de IA y un <b>tutor ético</b> que asesora a los usuarios en la aplicación de principios éticos en sus procesos creativos.
+                </p>
+
+
+                <a class="btn-white" href={`https://kitmu.cl/sobre-kitia`} target="_blank">Ver más</a>
+            </div>
+
+        </section>
+
         <!-- FAST CHECK -->
         <section id="fastcheck" class="card fast-card">
             <div class="fast-copy">
@@ -148,6 +193,42 @@
                 <img src={IMG.hero} alt="Equipo trabajando" />
             </figure>
         </section>
+
+        <!-- ¿CÓMO FUNCIONA? -->
+        <!-- ¿CÓMO FUNCIONA? -->
+        <section id="como-funciona" class="how-horizontal">
+            <div class="how-text">
+                <h2>¿Cómo funciona?</h2>
+
+                <p>
+                    El tutor ético es una inteligencia artificial de Kitia que permite a creadores de contenido
+                    evaluar la fortaleza ética de un proyecto en sus distintas etapas de producción. El usuario
+                    ingresa una consulta sobre el uso de alguna herramienta digital o IA, y el tutor devuelve una
+                    valoración del proyecto y recomendaciones de puntos a mejorar.
+                </p>
+
+                <p>
+                    La evaluación ética se asienta sobre la base de 8 pilares éticos que un proyecto de contenidos
+                    digital que usa IA debería acoger. Cada pilar va asociado a acciones que el usuario debería
+                    realizar para salvaguardar la integridad ética de su proyecto en las distintas etapas de
+                    producción de contenido.
+                </p>
+                <br><br>
+                <h3>Etapas de producción de contenido</h3>
+                <br><br>
+                <img src={IMG.stages} alt="Diagrama etapas de producción" />
+                <!--ol class="steps">
+                    <li><span>1</span><p>Pauta / Encargo</p></li>
+                    <li><span>2</span><p>Diseño</p></li>
+                    <li><span>3</span><p>Investigación / Producción</p></li>
+                    <li><span>4</span><p>Desarrollo</p></li>
+                    <li><span>5</span><p>Publicación</p></li>
+                    <li><span>6</span><p>Análisis Post-publicación</p></li>
+                </ol-->
+            </div>
+        </section>
+
+
 
         <!-- TUTORIALES -->
         <section id="pilares" class="tutoriales">
@@ -172,6 +253,41 @@
                 {/each}
             </div>
         </section>
+
+        <!-- VIDEOTUTORIALES -->
+        <section id="videos" class="videos">
+            <h2>Tutoriales</h2>
+            <p class="vlead">
+                Potencia tus habilidades con IA. Te dejamos videotutoriales para apoyarte en la
+                inteligencia artificial en tus procesos creativos.
+            </p>
+
+            <div class="vgrid">
+                {#each videos as v}
+                    <article class="vcard">
+                        <figure class="vimg">
+                            <img src={v.img} alt={v.title} />
+                        </figure>
+
+                        <div class="vbody">
+                            <h3>{v.title}</h3>
+                            <p>{v.blurb}</p>
+                            <a class="play-mini" href={v.href} aria-label="Ver video" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                    <path d="M8 5v14l11-7Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                {/each}
+            </div>
+
+            <div class="vmore">
+                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/">Ver más</a>
+            </div>
+        </section>
+
+
     </main>
 
     <!-- FOOTER opcional con sellos -->
@@ -179,10 +295,10 @@
         <div class="seal">
             <img src={IMG.seal1} alt="Pontificia Universidad Católica de Chile" />
             <div class="links">
-                <a href={`${base}/quienes-somos`}>Quienes somos</a>
-                <a href={`${base}/contacto`}>Contacto</a>
-                <a href={`${base}/kitmu`}>Kitmu</a>
-                <a href={`${base}/kit-movil`}>Kit móvil</a>
+                <a href={`https://kitmu.cl/sobre-kitia`}>Sobre KitIA</a>
+                <a href={`mailto:kitia.app@gmail.com`}>Contacto</a>
+                <a href={`https://kitmu.cl`}>Kitmu</a>
+                <a href={`https://kitmovil.com`}>Kit móvil</a>
             </div>
         </div>
         <div class="seal">
@@ -278,15 +394,16 @@
 
     /* Hero Bitácora */
     .hero-card{
-        display:grid; grid-template-columns: 1.05fr 1fr;
-        gap:0; margin: 5%; margin-top: 28px; background: var(--rose-500); padding:0;
+        display:grid; grid-template-columns: 1fr;
+        gap:0; margin: 5% 15%; margin-top: 28px; padding:0;
     }
     .hero-copy{
-        background: var(--rose-500);
-        color:#fff; padding: 40px 36px;
+        background: #fff;
+        color:#000; padding: 40px 36px;
+        margin: 0 5%;
     }
-    .hero-copy h1{ font-size: clamp(28px, 4.2vw, 48px); margin:0 0 12px }
-    .lead{ font-size: clamp(15px, 2vw, 18px); opacity:.95; max-width: 52ch; }
+    .hero-copy h1{ font-size: clamp(23px, 4.2vw, 43px); margin:0 0 12px; text-align: center; }
+    .lead{ font-size: clamp(14px, 2vw, 16px); opacity:.95; /*max-width: 52ch;*/ }
     .how{
         display:inline-block; margin-top: 18px; font-weight:800; color:#fff;
         text-decoration:none; font-style: italic;
@@ -371,4 +488,203 @@
             display:grid; gap: 18px; grid-template-columns: repeat(1, minmax(0,1fr));
         }
     }
+
+    /* Ajustes sutiles para la nueva copy */
+    .hero-copy .lead-sm { opacity: .92; margin-top: 8px; }
+    .hero-copy .bullets{
+        margin: 14px 0 8px;
+        padding-left: 1.1rem;
+        line-height: 1.4;
+        max-width: 52ch;
+        opacity: .95;
+    }
+    .hero-copy .bullets li{ margin: 6px 0; }
+    .kitia-banner {
+        width: 100%;
+        max-width: 420px;
+        display: block;
+        margin: 0 auto 20px;
+        opacity: 0.95;
+    }
+
+    /* --- Sección Cómo funciona (horizontal, limpia) --- */
+    .how-horizontal {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        gap: 40px;
+        margin: 5% 10%;
+        padding: 20px 0;
+        background: none;
+        box-shadow: none;
+        border: none;
+    }
+
+    .how-text h2 {
+        font-size: clamp(26px, 3.5vw, 42px);
+        margin-bottom: 12px;
+        color: var(--text);
+    }
+
+    .how-text p {
+        line-height: 1.6;
+        margin: 10px 0 16px;
+        /*max-width: 65ch;*/
+        color: var(--text);
+        opacity: 0.92;
+    }
+
+    .how-text h3 {
+        margin-top: 22px;
+        margin-bottom: 16px;
+        font-size: clamp(20px, 2.6vw, 28px);
+        color: var(--text);
+        font-weight: 800;
+    }
+
+    /* Steps estilo horizontal */
+    .steps {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 0;
+        list-style: none;
+        border-top: 2px solid #ddd;
+        margin-top: 18px;
+    }
+
+    .steps li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        flex: 1;
+        min-width: 100px;
+    }
+
+    .steps li span {
+        display: grid;
+        place-items: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #333;
+        color: #fff;
+        font-weight: 700;
+        margin-top: -20px;
+    }
+
+    .steps li p {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 8px;
+        max-width: 12ch;
+    }
+
+    /* Imagen lateral */
+    .how-img img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .how-horizontal {
+            grid-template-columns: 1fr;
+            margin: 8% 6%;
+        }
+        .steps {
+            justify-content: center;
+            border: none;
+        }
+    }
+
+    /* --- Videotutoriales --- */
+    .videos{
+        background: var(--rose-100);
+        border-radius: 22px;
+        padding: 5% 10%;
+    }
+    .videos h2{
+        color: var(--rose-600);
+        font-size: clamp(24px,3.4vw,36px);
+        margin: 6px 6px 8px;
+    }
+    .vlead{
+        margin: 6px 6px 20px;
+        color: var(--text);
+        opacity: .9;
+        max-width: 70ch;
+        line-height: 1.6;
+    }
+
+    .vgrid{
+        display: grid;
+        gap: 18px;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+    }
+
+    .vcard{
+        background: var(--rose-500);                    /* mismo tono que tcard */
+        border-radius: 20px;
+        box-shadow: 0 10px 26px rgba(0,0,0,.12);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vimg{ margin: 0; background: #e9f6ee; }   /* leve contraste del thumb */
+    .vimg img{
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .vbody{
+        padding: 18px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        align-items: start;
+        background: var(--rose-500);
+    }
+    .vbody h3{
+        grid-column: 1 / -1;
+        margin: 0 0 6px;
+        color: #fff;
+        font-size: clamp(18px,2.6vw,24px);
+    }
+    .vbody p{
+        grid-column: 1 / 2;
+        margin: 0;
+        color: #fff;
+        max-width: 44ch;
+    }
+
+    .vbody .play-mini svg path{
+        fill: var(--rose-500);
+    }
+
+    /* Reutiliza .play-mini existente */
+
+    /* Botón centrado */
+    .vmore{
+        display: grid;
+        place-items: center;
+        margin-top: 20px;
+    }
+
+    .vmore a{
+        color: var(--rose-500);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+        .vgrid{ grid-template-columns: 1fr; }
+    }
+
+
 </style>

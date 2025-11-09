@@ -75,10 +75,10 @@
     <div class="seal">
         <img src={IMG.sealLeft} alt="Pontificia Universidad Católica de Chile" />
         <div class="links">
-            <a href={`${base}/quienes-somos`}>Quienes somos</a>
-            <a href={`${base}/contacto`}>Contacto</a>
-            <a href={`${base}/kitmu`}>Kitmu</a>
-            <a href={`${base}/kit-movil`}>Kit móvil</a>
+            <a href={`https://kitmu.cl/kitia`}>Sobre KitIA</a>
+            <a href={`mailto:kitia.app@gmail.com`}>Contacto</a>
+            <a href={`https://kitmu.cl`}>Kitmu</a>
+            <a href={`https://kitmovil.com`}>Kit móvil</a>
         </div>
     </div>
     <div class="seal">
