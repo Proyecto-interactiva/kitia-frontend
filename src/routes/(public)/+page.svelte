@@ -33,6 +33,8 @@
         seal1: base + "/img/seal-left.svg",     // opcional (footer)
         seal2: base + "/img/seal-right.svg",     // opcional (footer)
         stages: base + "/img/diagrama-etapas.svg",
+        runway: base + "/img/runway.jpg",
+        adobe: base + "/img/adobe-podcast.jpg"
     };
 
     const tutoriales = [
@@ -97,17 +99,15 @@
     const videos = [
         {
             title: "Runway",
-            blurb:
-                "Generación  y edición de videos o imágenes con IA. Crea contenido visual de alta calidad utilizando modelos avanzados de inteligencia artificial.",
-            img: "https://d3phaj0sisr2ct.cloudfront.net/site/content/images/Gen-4card.jpg",                // reemplaza por tu thumbnail
-            href: "https://kitmu.cl/kitia/edicion-videos-kitia/runway/"      // reemplaza por tu ruta real
+            blurb: "Generación  y edición de videos o imágenes con IA. Crea contenido visual de alta calidad utilizando modelos avanzados de inteligencia artificial.",
+            img: IMG.runway,
+            href: "https://kitmu.cl/kitia/edicion-videos-kitia/runway/"
         },
         {
-            title: "NotebookLM",
-            blurb:
-                "Asistente de IA de Google para organizar y generar contenido a partir de tus notas. Optimiza tu flujo de trabajo creativo con esta herramienta innovadora.",
-            img: "https://www.cnet.com/a/img/resize/1e78e1dcc8b6a2f6d722769fdebe2f669e9dbfad/hub/2025/09/17/951e8139-306f-47a7-bcc5-00f253eeaeb7/notebooklm-audio-overview-play-controls.jpg?auto=webp&fit=crop&height=675&width=1200",              // reemplaza por tu thumbnail
-            href: "https://kitmu.cl/kitia/apuntes-kitia/notebooklm/"
+            title: "Adobe Podcast",
+            blurb: "Transforma audio grabado en contenido de alta calidad con IA. Mejora la claridad, elimina ruidos y optimiza la calidad de tus grabaciones de audio de manera sencilla.",
+            img: IMG.adobe,
+            href: "https://kitmu.cl/kitia/adobe-podcast/"
         }
     ];
 
