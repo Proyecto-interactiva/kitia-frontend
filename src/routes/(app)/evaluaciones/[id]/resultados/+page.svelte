@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { ResultadosData } from './+page';
-    import { PilaresUrls } from './+page';
+    import { PilaresUrls } from '$lib/pilares';
 
     export let data: { dataset: ResultadosData };
     const dataset = data.dataset;
@@ -363,7 +363,7 @@
                                 <strong>{f.texto}</strong>
                                 <div class="meta-line">Puntos {f.puntos}{#if f.impact !== undefined}{/if}</div>
                             </div>
-                            <div class="pilar-chip"><a href={getPilarUrl(f.pilar)}>🔗 {f.pilar}</a></div>
+                            <div class="pilar-chip"><a href={getPilarUrl(f.pilar)} target="_blank">🔗 {f.pilar}</a></div>
                         </div>
                     {/each}
                 {/if}
