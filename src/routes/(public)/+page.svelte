@@ -3,15 +3,16 @@
     import { onMount } from 'svelte';
     import {API_BASE} from "$lib/config";
 
-    let test_ping = false;
-
     onMount(() => {
-        if (!test_ping) {
-            fetch(`${API_BASE}/health`).then(res => {
-                test_ping = true;
+        // Ping backend every 5 minutes to keep alive
+        const ping = () => {
+            fetch(`${API_BASE}/health`).then(() => {
                 console.log("Conectado al servidor");
             });
-        }
+        };
+        ping(); // initial ping
+        const interval = setInterval(ping, 300000); // 5 minutes
+        return () => clearInterval(interval); // cleanup on unmount
     });
 
     let logoBroken = false;

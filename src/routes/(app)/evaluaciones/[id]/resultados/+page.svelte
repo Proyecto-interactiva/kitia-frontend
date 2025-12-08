@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { ResultadosData } from './+page';
+    import { PilaresUrls } from './+page';
 
     export let data: { dataset: ResultadosData };
     const dataset = data.dataset;
@@ -24,6 +25,11 @@
                 : e === 'necesita_mejoras'
                     ? 'Necesita mejoras'
                     : 'Requiere atención ética urgente';
+    }
+
+    function getPilarUrl(nombre: string) {
+        const found = PilaresUrls.find(p => p.nombre === nombre);
+        return found ? found.url : "#";
     }
 
     // Banda "Pilares Éticos": toma el pilar con mayor % obtenido
@@ -122,6 +128,11 @@
         text-align: center;
         font-weight: 600;
         font-size: smaller;
+    }
+
+    .pilar-chip a:visited, .pilar-chip a {
+        color: white;
+        text-decoration: none;
     }
 
     .green{ background: #E9F7E8; padding: 10px; margin: -16px -16px 0; }
@@ -352,7 +363,7 @@
                                 <strong>{f.texto}</strong>
                                 <div class="meta-line">Puntos {f.puntos}{#if f.impact !== undefined}{/if}</div>
                             </div>
-                            <div class="pilar-chip">{f.pilar}</div>
+                            <div class="pilar-chip"><a href={getPilarUrl(f.pilar)}>🔗 {f.pilar}</a></div>
                         </div>
                     {/each}
                 {/if}

@@ -40,6 +40,7 @@ You can preview the production build with `npm run preview`.
 ## Deploy to github pages
 ```
 NODE_ENV=production npm run build
+echo "kitia.cl" > build/CNAME
 npx gh-pages -d build
 ```
 

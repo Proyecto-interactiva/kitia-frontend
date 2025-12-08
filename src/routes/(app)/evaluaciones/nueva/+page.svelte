@@ -42,7 +42,7 @@
             const data = await res.json();
             draftId = data.draft_id;
             nombre = data.default_name || `Evaluación ${new Date().toLocaleDateString()}-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-            push('assistant', '👋 Hola, soy tu Tutor IA. Cuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras.\n\nPara orientarte mejor, estas son las etapas que suelo manejar:\n\t - Creación de Contenidos \n\t - Revisión y Validación \n\t - Publicación y Difusión \n\t -Posproducción \n\t -Monitoreo.\n\n Te haré algunas preguntas y cuando creas que está todo lo que necesitas compartir puedes hacer clic en "Continuar con evaluación ética". ¡Empecemos!');
+            push('assistant', '👋 Hola, soy tu Tutor IA. A través de esta conversación, te ayudaré a definir claramente la situación de tu proyecto. Usaremos lo que compartas para generar una autoevaluación y una guía de revisión ética adaptada a tu caso.\n\nCuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras. Para orientarte mejor, estas son las etapas que suelo manejar:\n - Creación de Contenidos\n - Revisión y Validación\n - Publicación y Difusión\n - Posproducción\n - Monitoreo\n\nTe haré algunas preguntas para entender mejor tu contexto. Cuando consideres que has entregado toda la información relevante, puedes hacer clic en \'Continuar con evaluación ética\'. ¡Empecemos!');
         }catch(e:any){
             error = e?.message || 'No se pudo iniciar el chat.';
         }
@@ -270,7 +270,7 @@
     .panel{ display:grid; gap: 12px; }
     .pill{
         display:inline-flex; align-items:center; justify-content:center;
-        padding: 8px 12px; border-radius: 999px; font-weight:800;
+        padding: 8px 12px; border-radius:999px; font-weight:800;
         background:#fff; border:1px solid var(--line); box-shadow: var(--shadow-sm);
     }
     .pill.green{ background: #ebfdf5; color:#065f46; border-color:#ccf5e7; }
@@ -341,7 +341,7 @@
         <section class="hero">
             <div>
                 <h1>Evaluación ética inicial</h1>
-                <p>Conversemos; haré preguntas cortas y te avisaré cuando tengamos lo mínimo para analizar.</p>
+                <p>A través de esta conversación, te ayudaré a definir la situación de tu proyecto. Usaremos lo que compartas para generar una autoevaluación y una guía de revisión ética útil y adaptada a tu caso. Te haré preguntas cortas y te avisaré cuando tengamos lo mínimo para analizar.</p>
             </div>
             <div style="display:flex; gap:8px; align-items:center;">
         <span class="pill {ready || minInfoOK() ? 'green' : 'yellow'}">
