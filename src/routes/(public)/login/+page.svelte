@@ -132,6 +132,15 @@
     .dot:nth-child(2){ animation-delay: .1s }
     .dot:nth-child(3){ animation-delay: .2s }
     @keyframes hop{ 0%,80%,100%{ transform: translateY(0) } 40%{ transform: translateY(-6px) } }
+    .access-instructions {
+        margin-bottom: 1.5rem;
+        color: var(--text-muted, #555);
+        line-height: 1.5;
+    }
+
+    .access-instructions strong {
+        color: var(--text-primary, #222);
+    }
 </style>
 
 <div class="page">
@@ -142,6 +151,19 @@
         </div>
 
         <div class="body">
+            <p class="subtitle access-instructions">
+                <strong>¿Primera vez en KitIA?</strong>
+                <br />
+                Ingresa tu email y crea una contraseña, luego haz clic en
+                <strong>Crear cuenta</strong>.
+            </p>
+            <p class="subtitle access-instructions">
+                <strong>¿Ya tienes cuenta?</strong>
+                <br />
+                Ingresa tus datos y haz clic en
+                <strong>Entrar</strong>.
+            </p>
+
             <div class="inputRow">
                 <label for="email">Email</label>
                 <div class="inputWrap">

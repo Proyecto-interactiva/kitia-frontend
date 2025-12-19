@@ -166,12 +166,14 @@
         </div>
         <hr />
         <h1 style="text-align:center; margin: 20px auto 10px; font-size: clamp(20px,4vw,32px); max-width:980px;">
-            Revisión de Pilares Éticos
+            Autoevaluación de pilares éticos
         </h1>
         <p style="text-align:center; margin:0 auto 24px; color:
             var(--muted); font-size: clamp(14px,2vw,18px); max-width:980px;">
-            Para continuar con el  análisis y guiarte mejor en el cumplimiento ético, necesitamos que nos cuentes verazmente si tu trabajo cumple con los siguientes postulados:
+            Para ayudarte a reflexionar sobre el uso de IA en tu proyecto, te invitamos a revisar los siguientes pilares éticos en una autoevaluación guiada que te permita identificar fortalezas, riesgos y decisiones a considerar.
         </p>
+        <p class="hint" style="margin-top:8px; background: #fffbf0; padding:8px 12px; border-radius:8px; border:1px solid #f3e6bf;"
+        ><b>Marca las preguntas que consideres cumplidas en tu proyecto actual. Al finalizar, podrás revisar un resumen de tu evaluación.</b> <br><br> Este proceso no evalúa tu desempeño académico ni reemplaza decisiones docentes. Es una herramienta que entrega un espacio de apoyo para la reflexión y autoevaluación ética.</p>
         {#each pilares as p}
             <section class="pilar">
                 <h2 class="pilar-title">{p.nombre}</h2>
@@ -195,7 +197,7 @@
 
                             <span class="qtext">{q.texto}</span>
                             <span class="meta">
-                {#if q.critica}Crítica · {/if}{q.puntos}p
+                {#if q.critica}Aspecto sensible · {/if}{q.puntos}p
               </span>
                         </label>
                     {/each}

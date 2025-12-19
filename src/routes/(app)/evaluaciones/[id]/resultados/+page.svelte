@@ -4,6 +4,8 @@
 
     export let data: { dataset: ResultadosData };
     const dataset = data.dataset;
+    // retrieve id from url
+    const id_from_url = window.location.pathname.split('/')[2];
 
     function pct(n: number) {
         return Math.round(n * 100);
@@ -23,7 +25,7 @@
             : e === 'ok'
                 ? 'Cumplimiento ético aceptable'
                 : e === 'necesita_mejoras'
-                    ? 'Necesita mejoras'
+                    ? 'Contiene aspectos a revisar'
                     : 'Requiere atención ética urgente';
     }
 
@@ -316,7 +318,7 @@
 <div class="page">
     <div class="wrap">
 
-        <h1 class="title">Resultados del Análisis Ético</h1>
+        <h1 class="title">Síntesis de tu revisión ética</h1>
 
         <section class="status" style={`border-color:${estadoColor}33`}>
             <div class="status-head">
@@ -343,7 +345,10 @@
             <div class="infocard">
                 <div style="font-weight:700">Nombre: <span class="muted" style="font-weight:600">{dataset.nombre}</span></div>
                 {#if dataset.descripcion}<div class="muted">Descripción: {dataset.descripcion}</div>{/if}
-                {#if dataset.etapa}<div class="muted">Etapa: {dataset.etapa}</div>{/if}
+                {#if dataset.etapa}<div class="muted">Etapa del proceso creativo: {dataset.etapa}</div>{/if}
+                <p class="muted" style="margin:26px 0 0; font-size:13px;">
+                    Este indicador no es una calificación. Resume áreas donde puedes reflexionar y fortalecer decisiones éticas en el uso de IA.
+                </p>
             </div>
         </section>
 
@@ -353,6 +358,9 @@
                 <div class="h4 green">Fortalezas identificadas
                     <span class="muted" style="font-weight:600"> · {dataset.resumen.fortalezas.length}</span>
                 </div>
+                <p class="muted" style="margin:0 0 10px;">
+                    Estos son aspectos donde tu proyecto ya muestra decisiones alineadas con una reflexión ética sobre el uso de IA.
+                </p>
 
                 {#if dataset.resumen.fortalezas.length === 0}
                     <p class="muted">Aún no hay fortalezas.</p>
@@ -371,9 +379,12 @@
 
             <!-- Áreas de mejora -->
             <div class="card">
-                <div class="h4 red">Áreas de mejora
+                <div class="h4 red">Aspectos éticos a fortalecer
                     <span class="muted" style="font-weight:600"> · {dataset.resumen.mejoras.length}</span>
                 </div>
+                <p class="muted" style="margin:0 0 10px;">
+                    Estos puntos no indican errores, sino oportunidades para revisar y ajustar decisiones en el uso de IA.
+                </p>
 
                 {#if dataset.resumen.mejoras.length === 0}
                     <p class="muted">No se detectaron pendientes críticos.</p>
@@ -394,10 +405,10 @@
 
         <!-- Herramientas -->
         <section class="card" style="margin-top:16px">
-            <div class="h4 purple">Herramientas de IA recomendadas</div>
+            <div class="h4 purple">Herramientas recomendadas</div>
             <br>
             <p class="muted" style="margin:0 0 10px;">
-                Revisa tutoriales y recursos que están asociados a la situación de tu proyecto y aprende cómo aplicar buenas prácticas éticas con IA.
+                A partir de tu revisión ética, aquí encontrarás herramientas y recursos que pueden ayudarte en tu proceso.
             </p>
             {#if dataset.herramientas.length === 0}
                 <p class="muted">Aún no hay recomendaciones.</p>
@@ -429,6 +440,16 @@
                 {/each}
             {/if}
         </section>
+
+        <!-- volver a editar  -->
+        <div style="text-align:center; margin: 24px 0;">
+            <p class="muted" style="margin-bottom:32px;">
+                Esta revisión no es un cierre definitivo. Puedes volver a tus respuestas, ajustar decisiones y repetir el proceso cuantas veces lo necesites a lo largo de tu proyecto.
+            </p>
+            <a href={`/evaluaciones/${id_from_url}/checklist`} class="btn" style="border-color: None; color: var(--ink); margin-top:38px;"
+            >Volver a editar la evaluación</a>
+            </div>
+
 
     </div>
 </div>

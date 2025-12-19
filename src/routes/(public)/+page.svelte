@@ -67,7 +67,7 @@
             img: IMG.equidad,
             href: "https://kitmu.cl/sobre-kitia/no-discriminacion-y-equidad/"
         },
-        {
+        /*{
             title: "Seguridad y prevención de daños",
             blurb:
                 "Etiquetado visible, explicaciones claras, documentación para el público comprensibles.",
@@ -94,7 +94,7 @@
                 "Auditoría de sesgos, diversidad de datos, revisión ética.",
             img: IMG.pluralismo,
             href: "https://kitmu.cl/sobre-kitia/pluralismo-y-diversidad-informativa/"
-        }
+        }*/
     ];
 
     const videos = [
@@ -159,103 +159,221 @@
             <div class="hero-copy ">
                 <img src={base + "/img/kitia-cols.svg"} alt="Ilustración KitIA" class="kitia-banner" />
 
-                <h1>Sobre KitIA</h1>
+                <h1 style="text-align:center; font-size: 30px">KitIA: tu espacio inteligente para crear con ética y estilo</h1>
                 <p class="lead">
-                    Proyecto que busca <b>promover el uso ético de herramientas</b>
-                    digitales e inteligencia artificial en la creación de contenidos.
+                    KitIA es una herramienta pensada especialmente para estudiantes de la FCOM UC que quieren usar IA… pero hacerlo bien. No se trata de “otro ChatGPT más”, sino de un <b>espacio diseñado para ayudarte a pensar cómo usar la IA</b> en tus ramos, proyectos y procesos creativos, considerando los desafíos reales del periodismo, la publicidad y el audiovisual.
                 </p>
 
                 <p class="lead lead-sm">
-                    Kitia consta de dos recursos principales: un <b>compendio de tutoriales</b> sobre el uso de herramientas de IA y un <b>tutor ético</b> que asesora a los usuarios en la aplicación de principios éticos en sus procesos creativos.
+                    Desarrollado por profes UC y basado en investigación UC, KitIA busca acompañarte en tus decisiones creativas: desde cuando surge una idea hasta cómo la trabajas y la presentas, siempre con criterio, responsabilidad y conciencia ética.
+                </p>
+
+                <p class="lead lead-sm">
+                    Si usas IA en tus trabajos, que sea con seguridad, claridad y criterio. KitIA no crea por ti: te ayuda a crear mejor, sin miedo y sin enredos.
                 </p>
 
 
-                <a class="btn-white" href={`https://kitmu.cl/sobre-kitia`} target="_blank">Ver más</a>
+                <a class="btn-white" href={`/tutor`} target="_blank">Comienza  a usar KitIA</a>
             </div>
 
         </section>
 
-        <!-- FAST CHECK -->
-        <section id="fastcheck" class="card fast-card">
-            <div class="fast-copy">
-                <h2>Tutor Ético</h2>
-                <p>
-                    Comienza una asesoría desde cero sobre tu proceso creativo usando iA.
-                </p>
-                <a class="btn-white" href="/tutor">Empezar</a>
-            </div>
-
-            <figure class="fast-media">
-                <img src={IMG.hero} alt="Equipo trabajando" />
-            </figure>
-        </section>
-
-        <!-- ¿CÓMO FUNCIONA? -->
-        <!-- ¿CÓMO FUNCIONA? -->
-        <section id="como-funciona" class="how-horizontal">
-            <div class="how-text">
-                <h2>¿Cómo funciona?</h2>
-
-                <p>
-                    El tutor ético es una inteligencia artificial de Kitia que permite a creadores de contenido
-                    evaluar la fortaleza ética de un proyecto en sus distintas etapas de producción. El usuario
-                    ingresa una consulta sobre el uso de alguna herramienta digital o IA, y el tutor devuelve una
-                    valoración del proyecto y recomendaciones de puntos a mejorar.
+        <section class="kitia-flow">
+            <div class="wrapper">
+                <h2>KitIA te acompaña a pensar tu proceso creativo:</h2>
+                <p class="subtitle">
+                    No es solo una herramienta: es un espacio pensado para apoyarte en las decisiones que tomas al usar IA en tu proceso creativo. Desde una idea inicial hasta la entrega de un proyecto, KitIA te ayuda a evaluar, reflexionar y decidir con responsabilidad, sin juzgarte ni limitar tu creatividad.
                 </p>
 
-                <p>
-                    La evaluación ética se asienta sobre la base de 8 pilares éticos que un proyecto de contenidos
-                    digital que usa IA debería acoger. Cada pilar va asociado a acciones que el usuario debería
-                    realizar para salvaguardar la integridad ética de su proyecto en las distintas etapas de
-                    producción de contenido.
-                </p>
-                <br><br>
-                <h3>Etapas de producción de contenido</h3>
-                <br><br>
-                <img src={IMG.stages} alt="Diagrama etapas de producción" />
-                <!--ol class="steps">
-                    <li><span>1</span><p>Pauta / Encargo</p></li>
-                    <li><span>2</span><p>Diseño</p></li>
-                    <li><span>3</span><p>Investigación / Producción</p></li>
-                    <li><span>4</span><p>Desarrollo</p></li>
-                    <li><span>5</span><p>Publicación</p></li>
-                    <li><span>6</span><p>Análisis Post-publicación</p></li>
-                </ol-->
-            </div>
-        </section>
-
-
-
-        <!-- TUTORIALES -->
-        <section id="pilares" class="tutoriales">
-            <h2>Pilares Éticos</h2>
-
-            <div class="grid">
-                {#each tutoriales as t}
-                    <article class="tcard">
-                        <figure class="timg">
-                            <img src={t.img} alt={t.title} />
-                        </figure>
-                        <div class="tbody">
-                            <h3>{t.title}</h3>
-                            <p>{t.blurb}</p>
-                            <a class="play-mini" href={t.href} aria-label="Abrir tutorial" target="_blank" rel="noopener">
-                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                                    <path d="M8 5v14l11-7Z"/>
-                                </svg>
-                            </a>
+                <div class="steps">
+                    <!-- PASO 1 -->
+                    <div class="step-card">
+                        <div class="icon yellow">
+                            💡
                         </div>
-                    </article>
-                {/each}
+                        <span class="step-label">PASO 1</span>
+                        <h3>Planificación</h3>
+                        <h5 style="margin-top: -10px">Tu punto de partida</h5>
+                        <hr />
+                        <p>Aquí decides cómo vas a crear y qué tan lejos quieres llegar.
+                        </p>
+                        <ul>
+                            <li>Identifica qué partes de tu proyecto pueden usar IA de forma ética.</li>
+                            <li>Define límites claros según tu carrera y las políticas UC.</li>
+                            <li>Comienza con un plan simple para documentar tu proceso (KitIA te guía).</li>
+                        </ul>
+                    </div>
+
+                    <!-- PASO 2 -->
+                    <div class="step-card">
+                        <div class="icon red">
+                            ✒
+                        </div>
+                        <span class="step-label">PASO 2</span>
+                        <h3>Desarrollo</h3>
+                        <h5 style="margin-top: -10px">Crea con IA, pero con criterio</h5>
+                        <hr />
+                        <p>Mientras produces, KitIA está contigo como un copiloto ético.</p>
+                        <ul>
+                            <li>Te entrega sugerencias según tu disciplina: periodismo, publicidad o audiovisual.</li>
+                            <li>Te ayuda a usar IA sin comprometer tu integridad académica.</li>
+                            <li>Guarda un registro de uso CONFIDENCIAL, al que sólo tú tienes acceso, para que no tengas que preocuparte después de dónde te quedaste en el proceso.</li>
+                        </ul>
+                    </div>
+
+                    <!-- PASO 3 -->
+                    <div class="step-card">
+                        <div class="icon green">
+                            🔍
+                        </div>
+                        <span class="step-label">PASO 3</span>
+                        <h3>Revisión de sesgos</h3>
+                        <h5 style="margin-top: -10px">Ajusta y afina tu contenido</h5>
+                        <hr />
+                        <p>Antes de cerrar, puedes revisar si tu trabajo refleja diversidad y justicia.</p>
+                        <ul>
+                            <li>Detección de sesgos culturales, de género y cognitivos.
+                            </li>
+                            <li>Apoyo para verificar fuentes y evitar desinformación.</li>
+                            <li>Ideas concretas para hacer tu contenido más equilibrado y objetivo.</li>
+                        </ul>
+                    </div>
+
+                    <!-- PASO 4 -->
+                    <div class="step-card">
+                        <div class="icon blue">
+                            ✓
+                        </div>
+                        <span class="step-label">PASO 4</span>
+                        <h3>Revisión ética final</h3>
+                        <h5 style="margin-top: -10px">Tu sello UC</h5>
+                        <hr />
+                        <p>El último paso para entregar algo que realmente represente lo que quieres comunicar.</p>
+                        <ul>
+                            <li>Checklist ético final basado en los ocho pilares.</li>
+                            <li>Reporte claro y descargable de cómo usaste IA.</li>
+                            <li>Validación simple con las políticas UC para que entregues con tranquilidad.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- EJEMPLO -->
+                <div class="example-section">
+                    <h4>Ejemplo: Campaña creativa usa generación de imágenes con IA</h4>
+                    <p>Sabemos que tienes que trabajar en una propuesta de campaña para una marca local de ropa, usando IA generativa para crear bocetos.</p>
+
+                    <h5>¿Cómo usar KitIA?:</h5>
+
+                    <div class="example-steps">
+                        <div class="example-step">
+                            <span class="line"></span>
+                            <div>
+                                <strong>1. PLANIFICACIÓN</strong>
+                                <p>
+                                    Consulta el pilar "Representación justa" para asegurarte de no reproducir estereotipos en las imágenes generadas.
+                                </p>
+                                <span class="result">→ Marco teórico claro</span>
+                            </div>
+                        </div>
+
+                        <div class="example-step">
+                            <span class="line"></span>
+                            <div>
+                                <strong>2. DESARROLLO</strong>
+                                <p>
+                                    Define tu escenario para el uso de IA junto al Tutor Ético "Voy a usar IA para crear imágenes de modelos humanos con la ropa de la marca. Las características son..."
+                                </p>
+                                <span class="result">→ KitIA te ayuda a definir límites éticos</span>
+                            </div>
+                        </div>
+
+                        <div class="example-step">
+                            <span class="line"></span>
+                            <div>
+                                <strong>3. REVISIÓN DESDE LA ÉTICA</strong>
+                                <p>
+                                    KitIA detecta los posibles riesgos de segos en tus imágenes y te sugiere una lista de preguntas de revisión a través de la herramienta de "Checklist ético" para ayudarte a evaluar si las imágenes generadas son inclusivas y respetuosas.
+                                </p>
+                                <span class="result">→ Autoevaluas sesgos con una guía práctica</span>
+                            </div>
+                        </div>
+
+                        <div class="example-step">
+                            <span class="line"></span>
+                            <div>
+                                <strong>4. REVISIÓN FINAL</strong>
+                                <p>
+                                    Generas reporte de uso ético de IA que puedes actualizar a medida que solucionas las cuestiones planteadas en la revisión ética para documentar todo tu proceso.
+                                </p>
+                                <span class="result">→ Generas documentación y reflexión crítica</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BLOQUE FINAL -->
+                <div class="comparison-box">
+                    <p>
+                        <strong>Con solo ChatGPT:</strong><br />
+                        Generarías contenido sin guía ética, sin documentar el proceso, sin revisar
+                        sesgos y sin alinear con estándares UC.
+                        <br /><br />
+                        <strong>KitIA te acompaña en CADA paso.</strong>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="kitia-start">
+            <div class="kitia-start-wrapper">
+                <h2>Comienza a usar IA de forma ética hoy</h2>
+
+                <!-- Video -->
+                <div class="video-box">
+                    <div class="play-button">▶</div>
+                    <span class="video-label">Video: Cómo usar KitIA</span>
+                </div>
+
+                <!-- CTA -->
+                <a href="/tutor" class="cta-button">
+                    Acceder a KitIA <span>→</span>
+                </a>
+
+                <!-- Cards -->
+                <div class="benefits">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🎓</div>
+                        <h4>Para estudiantes de Comunicaciones</h4>
+                        <p>
+                            Diseñado específicamente para el contexto académico UC
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">🛡️</div>
+                        <h4>100% ético</h4>
+                        <p>
+                            Garantiza integridad en cada paso de tu trabajo
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon">👥</div>
+                        <h4>Comunidad activa</h4>
+                        <p>
+                            Aprende con casos reales de otros estudiantes
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
         <!-- VIDEOTUTORIALES -->
         <section id="videos" class="videos">
-            <h2>Tutoriales</h2>
+            <h2>Revisa algunos tutoriales para usar las mejores herramientas de IA</h2>
             <p class="vlead">
-                Potencia tus habilidades con IA. Te dejamos videotutoriales para apoyarte en la
-                inteligencia artificial en tus procesos creativos.
+
             </p>
 
             <div class="vgrid">
@@ -279,7 +397,68 @@
             </div>
 
             <div class="vmore">
-                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/" target="_blank">Ver más</a>
+                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/" target="_blank">Ver más tutoriales →</a>
+            </div>
+        </section>
+
+        <!-- PILARES -->
+        <section id="pilares" class="tutoriales">
+            <h2>KitIA está basado en Pilares Éticos de Estándares Internacionales</h2>
+            <p class="vlead">
+                Estos pilares nacen de una investigación realizada por académicos de la FCOM, que se basa en estándares internacionales adaptados a las necesidades de las carreras de Comunicaciones
+            </p>
+
+            <div class="grid">
+                {#each tutoriales as t}
+                    <article class="tcard">
+                        <figure class="timg">
+                            <img src={t.img} alt={t.title} />
+                        </figure>
+                        <div class="tbody">
+                            <h3>{t.title}</h3>
+                            <p>{t.blurb}</p>
+                            <a class="play-mini" href={t.href} aria-label="Abrir tutorial" target="_blank" rel="noopener">
+                                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
+                                    <path d="M8 5v14l11-7Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                {/each}
+            </div>
+            <div class="vmore">
+                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/" target="_blank">Ver todos los pilares éticos →</a>
+            </div>
+        </section>
+
+        <section class="kitia-faq">
+            <div class="faq-wrapper">
+                <h2>Preguntas frecuentes</h2>
+
+                <div class="faq-item">
+                    <h4>¿KitIA reemplaza a ChatGPT?</h4>
+                    <p>
+                        Para nada. KitIA no compite con ChatGPT: lo potencia. De hecho, ni siquiera es un bot, sino tu guía para que uses cualquier IA —incluida ChatGPT— de manera ética, inteligente y alineada con lo que pide la FCOM UC.
+                    </p>
+                </div>
+
+                <hr />
+
+                <div class="faq-item">
+                    <h4>¿Es obligatorio usarlo?</h4>
+                    <p>
+                        No. Nadie te obliga, pero te recomendamos usarla porque te ayuda a evitar errores éticos, mejorar tus entregas y trabajar con IA sin estrés. Es como un copiloto que te hace la vida más fácil… si tú quieres usarlo. Esto no quita que puede ser un recurso docente complementario en algunos cursos.
+                    </p>
+                </div>
+
+                <hr />
+
+                <div class="faq-item">
+                    <h4>¿Tiene costo?</h4>
+                    <p>
+                        Cero pesos. Es 100% gratuito para cualquier estudiante UC con correo @uc.cl. Lo activas y listo, sin trámites ni suscripciones raras.
+                    </p>
+                </div>
             </div>
         </section>
 
@@ -436,7 +615,7 @@
     .fast-media img{ width:100%; height:100%; object-fit:cover; }
 
     /* Tutoriales */
-    .tutoriales{ margin-top: 36px; background: var(--green-100); border-radius: 22px; padding: 5% 10%; }
+    .tutoriales{ background: var(--green-100); border-radius: 22px; padding: 5% 10%; }
     .tutoriales h2{ color: var(--green-600); font-size: clamp(24px,3.4vw,36px); margin: 6px 6px 18px }
     .grid{
         display:grid; gap: 18px; grid-template-columns: repeat(4, minmax(0,1fr));
@@ -538,46 +717,6 @@
         font-weight: 800;
     }
 
-    /* Steps estilo horizontal */
-    .steps {
-        display: flex;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 20px;
-        padding: 0;
-        list-style: none;
-        border-top: 2px solid #ddd;
-        margin-top: 18px;
-    }
-
-    .steps li {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        flex: 1;
-        min-width: 100px;
-    }
-
-    .steps li span {
-        display: grid;
-        place-items: center;
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        background: #333;
-        color: #fff;
-        font-weight: 700;
-        margin-top: -20px;
-    }
-
-    .steps li p {
-        font-size: 14px;
-        color: var(--muted);
-        margin-top: 8px;
-        max-width: 12ch;
-    }
-
     /* Imagen lateral */
     .how-img img {
         width: 100%;
@@ -613,7 +752,7 @@
         margin: 6px 6px 20px;
         color: var(--text);
         opacity: .9;
-        max-width: 70ch;
+        max-width: 120ch;
         line-height: 1.6;
     }
 
@@ -681,6 +820,361 @@
     @media (max-width: 980px){
         .vgrid{ grid-template-columns: 1fr; }
     }
+
+    .kitia-flow {
+        padding: 5rem 1rem;
+        background: #ffffff;
+    }
+
+    .wrapper {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .kitia-flow h2 {
+        font-size: 2.25rem;
+        font-weight: 700;
+    }
+
+    .subtitle {
+        margin: 1rem auto 3.5rem;
+        max-width: 720px;
+        color: #6b7280;
+    }
+
+    .steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.75rem;
+    }
+
+    .step-card {
+        background: linear-gradient(180deg, #f8fafc, #ffffff);
+        border: 1px solid #d1d5db;
+        border-radius: 20px;
+        padding: 2.5rem 1.75rem;
+        text-align: center;
+    }
+
+    .icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        margin: 0 auto 1rem;
+        border: 2px solid currentColor;
+    }
+
+    .icon.yellow { color: #f59e0b; }
+    .icon.red { color: #ef4444; }
+    .icon.green { color: #22c55e; }
+    .icon.blue { color: #3b82f6; }
+
+    .step-label {
+        font-size: 0.75rem;
+        color: #6b7280;
+        letter-spacing: 0.08em;
+    }
+
+    .step-card h3 {
+        margin: 0.5rem 0 1rem;
+    }
+
+    .step-card hr {
+        border: none;
+        border-top: 1px solid #e5e7eb;
+        margin-bottom: 1rem;
+    }
+
+    .step-card p {
+        color: #6b7280;
+        font-size: 0.95rem;
+    }
+
+    .step-card ul {
+        margin-top: 1rem;
+        padding-left: 1.2rem;
+        text-align: left;
+        font-size: 0.9rem;
+        color: #374151;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 1rem;
+        list-style-type: disc;
+    }
+
+    .step-card ul li {
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
+
+    .example {
+        margin-top: 3.5rem;
+        padding: 2rem;
+        background: linear-gradient(180deg, #fff7ed, #ffffff);
+        border: 1px solid #fed7aa;
+        border-radius: 20px;
+    }
+
+    .example-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        text-align: left;
+    }
+
+    .note {
+        margin-top: 2rem;
+        font-size: 0.9rem;
+        color: #6b7280;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .steps,
+        .example-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .steps,
+        .example-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* EJEMPLO */
+    .example-section {
+        margin-top: 4rem;
+        padding: 2.5rem 2rem;
+        background: linear-gradient(180deg, #fff7ed, #ffffff);
+        border: 1px solid #fed7aa;
+        border-radius: 20px;
+        text-align: left;
+    }
+
+    .example-section h4 {
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .example-steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+    }
+
+    .example-step {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .example-step .line {
+        width: 3px;
+        background: #fb923c;
+        border-radius: 2px;
+    }
+
+    .example-step strong {
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+        color: #374151;
+    }
+
+    .example-step p {
+        margin: 0.4rem 0 0.5rem;
+        color: #4b5563;
+    }
+
+    .example-step .result {
+        font-size: 0.85rem;
+        color: #ea580c;
+        font-weight: 500;
+    }
+
+    /* BLOQUE FINAL */
+    .comparison-box {
+        margin-top: 2.5rem;
+        padding: 1.75rem;
+        background: #f9fafb;
+        border-radius: 16px;
+        text-align: center;
+        color: #4b5563;
+        font-size: 0.9rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+        .example-steps {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .example-steps {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .kitia-start {
+        background: linear-gradient(180deg, #eceaf6, #f6f5fb);
+        padding: 5rem 1rem 6rem;
+    }
+
+    .kitia-start-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .kitia-start h2 {
+        font-size: 2.2rem;
+        font-weight: 700;
+        margin-bottom: 2.5rem;
+    }
+
+    /* Video */
+    .video-box {
+        position: relative;
+        margin: 0 auto 2.5rem;
+        max-width: 720px;
+        height: 400px;
+        background: linear-gradient(135deg, #0f172a, #1e293b);
+        border-radius: 4px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .play-button {
+        width: 64px;
+        height: 64px;
+        border: 3px solid white;
+        border-radius: 50%;
+        color: white;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .video-label {
+        position: absolute;
+        bottom: 1.2rem;
+        color: #e5e7eb;
+        font-size: 0.85rem;
+    }
+
+    /* CTA */
+    .cta-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: white;
+        color: #a16207;
+        padding: 0.9rem 1.8rem;
+        border-radius: 999px;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        margin-bottom: 4rem;
+    }
+
+    /* Benefits */
+    .benefits {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .benefit-card {
+        background: white;
+        border: 2px solid #7c7cf085;
+        padding: 2.2rem 1.8rem;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .benefit-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .benefit-card h4 {
+        margin-bottom: 0.6rem;
+        font-size: 1rem;
+    }
+
+    .benefit-card p {
+        font-size: 0.9rem;
+        color: #6b7280;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .benefits {
+            grid-template-columns: 1fr;
+        }
+
+        .video-box {
+            height: 280px;
+        }
+    }
+
+    .kitia-faq {
+        background: linear-gradient(180deg, #eceaf6, #f6f5fb);
+        padding: 5rem 1rem 6rem;
+    }
+
+    .faq-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+        background: linear-gradient(180deg, #0b2a66, #0a1f4d);
+        border-radius: 4px;
+        padding: 3rem 3.5rem;
+        color: #ffffff;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
+
+    .faq-wrapper h2 {
+        text-align: center;
+        font-size: 1.6rem;
+        font-weight: 600;
+        margin-bottom: 2.5rem;
+    }
+
+    .faq-item h4 {
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    .faq-item p {
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: #e5e7eb;
+    }
+
+    .faq-wrapper hr {
+        border: none;
+        border-top: 1px solid rgba(255,255,255,0.4);
+        margin: 2rem 0;
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+        .faq-wrapper {
+            padding: 2.5rem 1.8rem;
+        }
+    }
+
 
 
 </style>

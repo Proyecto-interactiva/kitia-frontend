@@ -42,7 +42,7 @@
             const data = await res.json();
             draftId = data.draft_id;
             nombre = data.default_name || `Evaluación ${new Date().toLocaleDateString()}-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-            push('assistant', '👋 Hola, soy tu Tutor IA. A través de esta conversación, te ayudaré a definir claramente la situación de tu proyecto. Usaremos lo que compartas para generar una autoevaluación y una guía de revisión ética adaptada a tu caso.\n\nCuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras. Para orientarte mejor, estas son las etapas que suelo manejar:\n - Creación de Contenidos\n - Revisión y Validación\n - Publicación y Difusión\n - Posproducción\n - Monitoreo\n\nTe haré algunas preguntas para entender mejor tu contexto. Cuando consideres que has entregado toda la información relevante, puedes hacer clic en \'Continuar con evaluación ética\'. ¡Empecemos!');
+            push('assistant', '👋 Hola, soy tu Tutor IA. Mi rol es ayudarte a pensar y describir con claridad la situación de tu proyecto y cómo estás considerando el uso de IA. A partir de lo que compartas, construiremos una autoevaluación y una guía de revisión ética que te sirvan como apoyo para tomar decisiones responsables.\n\nCuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras. Para orientar mejor la reflexión, estas son algunas etapas del proceso creativo donde suele aparecer el uso de IA:\n - Creación de Contenidos\n - Revisión y Validación\n - Publicación y Difusión\n - Posproducción\n - Monitoreo\n\nTe haré algunas preguntas para comprender mejor tu contexto y ayudarte a revisar tu proyecto desde una perspectiva ética. Cuando sientas que ya entregaste la información relevante, puedes hacer clic en \'Continuar con evaluación ética\'. ¡Empecemos!');
         }catch(e:any){
             error = e?.message || 'No se pudo iniciar el chat.';
         }
@@ -341,7 +341,9 @@
         <section class="hero">
             <div>
                 <h1>Evaluación ética inicial</h1>
-                <p>A través de esta conversación, te ayudaré a definir la situación de tu proyecto. Usaremos lo que compartas para generar una autoevaluación y una guía de revisión ética útil y adaptada a tu caso. Te haré preguntas cortas y te avisaré cuando tengamos lo mínimo para analizar.</p>
+                <p>A través de esta conversación, te ayudaré a clarificar la situación de tu proyecto y el contexto en el que estás usando IA. Con lo que compartas, construiremos una autoevaluación y una guía de revisión ética pensadas para tu caso. Te haré preguntas breves y te avisaré cuando tengamos la información mínima para reflexionar con mayor profundidad.</p>
+                <p class="hint" style="margin-top:8px; background: #fffbf0; padding:8px 12px; border-radius:8px; border:1px solid #f3e6bf;"
+                >Este proceso no evalúa tu desempeño académico ni reemplaza decisiones docentes. Es una herramienta que entrega un espacio de apoyo para la reflexión y autoevaluación ética.</p>
             </div>
             <div style="display:flex; gap:8px; align-items:center;">
         <span class="pill {ready || minInfoOK() ? 'green' : 'yellow'}">
