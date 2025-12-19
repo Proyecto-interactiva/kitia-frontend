@@ -373,7 +373,7 @@
         <section id="videos" class="videos">
             <h2>Revisa algunos tutoriales para usar las mejores herramientas de IA</h2>
             <p class="vlead">
-
+                ¿Quieres incorporar IA a tus proyectos comunicacionales? Aquí encontrarás videotutoriales diseñados especialmente para estudiantes de la FCOM UC, donde aprenderás a usar herramientas de IA para potenciar tu creatividad, mejorar tus procesos y experimentar con nuevas formas de producir contenido.
             </p>
 
             <div class="vgrid">
@@ -427,7 +427,7 @@
                 {/each}
             </div>
             <div class="vmore">
-                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/" target="_blank">Ver todos los pilares éticos →</a>
+                <a class="btn-white" href="https://kitmu.cl/sobre-kitia/pilares/" target="_blank">Ver todos los pilares éticos →</a>
             </div>
         </section>
 
