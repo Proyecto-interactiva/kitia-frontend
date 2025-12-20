@@ -25,7 +25,7 @@
             const data = await res.json();
             localStorage.setItem('access_token', data.access_token);
             localStorage.setItem('email', email);
-            window.location.href = `${base}/tutor/`;
+            window.location.href = `${base}/app/`;
         } catch (e: any) {
             err = e.message;
         } finally {

@@ -16,8 +16,8 @@
 
     const navLinks = [
         { href: `${base}/`, label: 'Inicio', pill: 'rose' },
-        { href: `${base}/tutor`, label: 'Tutor IA', pill: 'yellow' },
-        { href: `${base}/#pilares`, label: 'Pilares', pill: 'green' }
+        { href: `https://kitmu.cl/sobre-kitia/`, label: 'Sobre KitIA', pill: 'yellow' },
+        { href: `${base}/app`, label: 'KitIA APP', pill: 'green' },
     ];
 
     async function logout() {
@@ -31,7 +31,7 @@
 </script>
 
 <header class="topbar">
-    <a href="{`${base}/tutor`}" class="brand" aria-label="Inicio">
+    <a href="{`${base}/app`}" class="brand" aria-label="Inicio">
         <img
                 src={IMG.logo}
                 alt="kitIA"
@@ -46,7 +46,7 @@
 
     <nav class="nav">
         {#each navLinks as n}
-            <a class="pill {n.pill}" href={n.href}>{n.label}</a>
+            <a class="pill {n.pill}" href={n.href} target="_blank">{n.label}</a>
         {/each}
     </nav>
 

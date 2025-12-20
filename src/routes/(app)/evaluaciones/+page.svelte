@@ -205,7 +205,7 @@
                     Aún no tienes evaluaciones.
                 {/if}
                 <div style="margin-top:10px;">
-                    <button class="btn primary" on:click={() => (window.location.href = `${base}/tutor`)}>Crear una nueva</button>
+                    <button class="btn primary" on:click={() => (window.location.href = `${base}/app`)}>Crear una nueva</button>
                 </div>
             </div>
         {:else}

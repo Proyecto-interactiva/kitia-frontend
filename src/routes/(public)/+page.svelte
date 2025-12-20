@@ -117,7 +117,7 @@
 <div class="page">
     <!-- HEADER -->
     <header class="topbar">
-        <a href="/" class="brand" aria-label="Tutor">
+        <a href="/" class="brand" aria-label="KitIA APP">
             <img
                     src={IMG.logo}
                     alt="KitIA"
@@ -131,12 +131,13 @@
         </a>
 
         <!--nav class="nav">
-            <a class="pill active" href="#bitacora">Principios Éticos</a>
-            <a class="pill pill-yellow" href="#fastcheck">Tutor IA</a>
-            <a class="pill pill-green" href="#tutoriales">Tutoriales</a>
+            <a class="pill pill-yellow" href="https://kitmu.cl/sobre-kitia/">Sobre KitIA</a>
+            <a class="pill active" href="https://kitmu.cl/sobre-kitia/pilares/">Pilares Éticos</a>
         </nav-->
 
         <div class="actions">
+            <a class="pill pill-yellow" href="https://kitmu.cl/sobre-kitia/" target="_blank">Sobre KitIA</a>
+            <a class="pill active" href="https://kitmu.cl/sobre-kitia/pilares/" target="_blank">Pilares Éticos</a>
             {#if IMG.kitmu}
                 <a href="https://kitmu.cl/" class="kitmu" no-referrer aria-label="KitMU" target="_blank">
                     <img
@@ -173,7 +174,7 @@
                 </p>
 
 
-                <a class="btn-white" href={`/tutor`} target="_blank">Comienza  a usar KitIA</a>
+                <a class="btn-white" href={`/app`} target="_blank">Comienza  a usar KitIA</a>
             </div>
 
         </section>
@@ -281,7 +282,7 @@
                             <div>
                                 <strong>2. DESARROLLO</strong>
                                 <p>
-                                    Define tu escenario para el uso de IA junto al Tutor Ético "Voy a usar IA para crear imágenes de modelos humanos con la ropa de la marca. Las características son..."
+                                    Define tu escenario para el uso de IA junto a KitIA "Voy a usar IA para crear imágenes de modelos humanos con la ropa de la marca. Las características son..."
                                 </p>
                                 <span class="result">→ KitIA te ayuda a definir límites éticos</span>
                             </div>
@@ -336,7 +337,7 @@
                 </div>
 
                 <!-- CTA -->
-                <a href="/tutor" class="cta-button">
+                <a href="/app" class="cta-button">
                     Acceder a KitIA <span>→</span>
                 </a>
 

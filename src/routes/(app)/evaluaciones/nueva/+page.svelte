@@ -42,7 +42,7 @@
             const data = await res.json();
             draftId = data.draft_id;
             nombre = data.default_name || `Evaluación ${new Date().toLocaleDateString()}-${Date.now()}-${Math.floor(Math.random() * 10000)}`;
-            push('assistant', '👋 Hola, soy tu Tutor IA. Mi rol es ayudarte a pensar y describir con claridad la situación de tu proyecto y cómo estás considerando el uso de IA. A partir de lo que compartas, construiremos una autoevaluación y una guía de revisión ética que te sirvan como apoyo para tomar decisiones responsables.\n\nCuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras. Para orientar mejor la reflexión, estas son algunas etapas del proceso creativo donde suele aparecer el uso de IA:\n - Creación de Contenidos\n - Revisión y Validación\n - Publicación y Difusión\n - Posproducción\n - Monitoreo\n\nTe haré algunas preguntas para comprender mejor tu contexto y ayudarte a revisar tu proyecto desde una perspectiva ética. Cuando sientas que ya entregaste la información relevante, puedes hacer clic en \'Continuar con evaluación ética\'. ¡Empecemos!');
+            push('assistant', '👋 Hola, soy KitIA. Mi rol es ayudarte a pensar y describir con claridad la situación de tu proyecto y cómo estás considerando el uso de IA. A partir de lo que compartas, construiremos una autoevaluación y una guía de revisión ética que te sirvan como apoyo para tomar decisiones responsables.\n\nCuéntame brevemente tu objetivo y en qué etapa del proyecto te encuentras. Para orientar mejor la reflexión, estas son algunas etapas del proceso creativo donde suele aparecer el uso de IA:\n - Creación de Contenidos\n - Revisión y Validación\n - Publicación y Difusión\n - Posproducción\n - Monitoreo\n\nTe haré algunas preguntas para comprender mejor tu contexto y ayudarte a revisar tu proyecto desde una perspectiva ética. Cuando sientas que ya entregaste la información relevante, puedes hacer clic en \'Continuar con evaluación ética\'. ¡Empecemos!');
         }catch(e:any){
             error = e?.message || 'No se pudo iniciar el chat.';
         }
@@ -371,7 +371,7 @@
                     <rect x="10" y="15" width="4" height="2" rx="1" fill="#374151"/>
                     <line x1="2" y1="10" x2="4" y2="10" stroke="#374151" stroke-width="1"/>
                     <line x1="20" y1="10" x2="22" y2="10" stroke="#374151" stroke-width="1"/>
-                </svg> Tutor IA</div>
+                </svg> KitIA</div>
                 <div id="chatbox" class="chatbody">
                     {#each messages as m}
                         <div class="msg {m.role}">{m.content}</div>
