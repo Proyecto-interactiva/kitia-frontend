@@ -1174,6 +1174,7 @@
         .faq-wrapper {
             padding: 2.5rem 1.8rem;
         }
+        .pill{ font-size: 10px;}
     }
 
 
