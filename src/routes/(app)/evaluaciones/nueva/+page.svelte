@@ -77,12 +77,16 @@
         });
 
         try{
+            // message debe contener los últimos 3 mensajes + lo que estaba en etapa/descripcion/herramientas
+            const lastMessages = messages.lenght > 2 ? messages.slice(-2) : "";
+            const compiledInput = `${text}\n\nContexto actual: \n -Último mensajes: ${JSON.stringify(lastMessages)} \n- Etapa: ${etapa || 'no especificada'}\n- Descripción: ${descripcion || 'no especificada'}\n- Herramientas: ${herramientas || 'no especificadas'} \n - número de msjs previos: ${messages.length/2}`;
+
             sending = true;
             const token = localStorage.getItem('access_token') || '';
             const res = await fetch(`${API_BASE}/intake/${draftId}/message`, {
                 method: 'POST',
                 headers: { 'Content-Type':'application/json', 'Authorization': `Bearer ${token}` },
-                body: JSON.stringify({ message: text, current_name: nombre || null })
+                body: JSON.stringify({ message: compiledInput, current_name: nombre || null })
             });
             if(!res.ok) throw new Error(await res.text());
             const data = await res.json();

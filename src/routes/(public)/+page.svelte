@@ -17,6 +17,7 @@
 
     let logoBroken = false;
     let kitmuBroken = false;
+    let showMore = false;
     // Ajusta rutas si usas otros nombres/formatos de imagen
     const IMG = {
         logo: base + "/img/logo-kitia.svg",     // opcional, si no existe mostrará texto
@@ -34,8 +35,8 @@
         seal1: base + "/img/seal-left.svg",     // opcional (footer)
         seal2: base + "/img/seal-right.svg",     // opcional (footer)
         stages: base + "/img/diagrama-etapas.svg",
-        runway: base + "/img/runway.jpg",
-        adobe: base + "/img/adobe-podcast.jpg"
+        runway: base + "https://img.youtube.com/vi/wa5RcsQ4p3U/maxresdefault.jpg",
+        adobe: base + "https://img.youtube.com/vi/XQOdtMnUTSs/maxresdefault.jpg"
     };
 
     const tutoriales = [
@@ -137,7 +138,9 @@
 
         <div class="actions">
             <a class="pill pill-yellow" href="https://kitmu.cl/sobre-kitia/" target="_blank">Sobre KitIA</a>
-            <a class="pill active" href="https://kitmu.cl/sobre-kitia/pilares/" target="_blank">Pilares Éticos</a>
+            <a class="pill pill-green" href="https://kitmu.cl/sobre-kitia/pilares/" target="_blank">Pilares Éticos</a>
+            <a class="pill active" href="https://kitmu.cl/etapas/generacion-de-contenidos/kitia/" target="_blank">Tutoriales</a>
+            <a class="pill pill-lightblue" href="#faq" >Preguntas frecuentes</a>
             {#if IMG.kitmu}
                 <a href="https://kitmu.cl/" class="kitmu" no-referrer aria-label="KitMU" target="_blank">
                     <img
@@ -162,9 +165,11 @@
 
                 <h1 style="text-align:center; font-size: 30px">KitIA: tu espacio inteligente para crear con ética y estilo</h1>
                 <p class="lead">
-                    KitIA es una herramienta pensada especialmente para estudiantes de la FCOM UC que quieren usar IA… pero hacerlo bien. No se trata de “otro ChatGPT más”, sino de un <b>espacio diseñado para ayudarte a pensar cómo usar la IA</b> en tus ramos, proyectos y procesos creativos, considerando los desafíos reales del periodismo, la publicidad y el audiovisual.
+                    KitIA es una herramienta pensada especialmente para estudiantes de la FCOM UC que quieren usar IA… pero hacerlo bien. No se trata de “otro ChatGPT más”, sino de un <b>espacio diseñado para ayudarte a pensar cómo usar la IA</b> en tus ramos, proyectos y procesos creativos, considerando los desafíos reales del periodismo, la publicidad y el audiovisual. <a class="read-more-btn" style="color:blue; cursor: pointer" on:click={() => showMore = !showMore}>
+                    {showMore ? '' : '[Leer más ...]'}
+                </a>
                 </p>
-
+                {#if showMore}
                 <p class="lead lead-sm">
                     Desarrollado por profes UC y basado en investigación UC, KitIA busca acompañarte en tus decisiones creativas: desde cuando surge una idea hasta cómo la trabajas y la presentas, siempre con criterio, responsabilidad y conciencia ética.
                 </p>
@@ -172,9 +177,10 @@
                 <p class="lead lead-sm">
                     Si usas IA en tus trabajos, que sea con seguridad, claridad y criterio. KitIA no crea por ti: te ayuda a crear mejor, sin miedo y sin enredos.
                 </p>
+                {/if}
 
 
-                <a class="btn-white" href={`/app`} target="_blank">Comienza  a usar KitIA</a>
+                <a class="btn-white" href={`/app`} target="_blank">comienza  a usar KitIA</a>
             </div>
 
         </section>
@@ -312,17 +318,6 @@
                     </div>
                 </div>
 
-                <!-- BLOQUE FINAL -->
-                <div class="comparison-box">
-                    <p>
-                        <strong>Con solo ChatGPT:</strong><br />
-                        Generarías contenido sin guía ética, sin documentar el proceso, sin revisar
-                        sesgos y sin alinear con estándares UC.
-                        <br /><br />
-                        <strong>KitIA te acompaña en CADA paso.</strong>
-                    </p>
-                </div>
-
             </div>
         </section>
 
@@ -340,33 +335,6 @@
                 <a href="/app" class="cta-button">
                     Acceder a KitIA <span>→</span>
                 </a>
-
-                <!-- Cards -->
-                <div class="benefits">
-                    <div class="benefit-card">
-                        <div class="benefit-icon">🎓</div>
-                        <h4>Para estudiantes de Comunicaciones</h4>
-                        <p>
-                            Diseñado específicamente para el contexto académico UC
-                        </p>
-                    </div>
-
-                    <div class="benefit-card">
-                        <div class="benefit-icon">🛡️</div>
-                        <h4>100% ético</h4>
-                        <p>
-                            Garantiza integridad en cada paso de tu trabajo
-                        </p>
-                    </div>
-
-                    <div class="benefit-card">
-                        <div class="benefit-icon">👥</div>
-                        <h4>Comunidad activa</h4>
-                        <p>
-                            Aprende con casos reales de otros estudiantes
-                        </p>
-                    </div>
-                </div>
             </div>
         </section>
 
@@ -374,7 +342,7 @@
         <section id="videos" class="videos">
             <h2>Revisa algunos tutoriales para usar las mejores herramientas de IA</h2>
             <p class="vlead">
-                ¿Quieres incorporar IA a tus proyectos comunicacionales? Aquí encontrarás videotutoriales diseñados especialmente para estudiantes de la FCOM UC, donde aprenderás a usar herramientas de IA para potenciar tu creatividad, mejorar tus procesos y experimentar con nuevas formas de producir contenido.
+                ¿Quieres incorporar IA a tus proyectos comunicacionales? Aquí encontrarás videotutoriales donde aprenderás a usar herramientas de IA para potenciar tu creatividad, mejorar tus procesos y experimentar con nuevas formas de producir contenido.
             </p>
 
             <div class="vgrid">
@@ -398,13 +366,13 @@
             </div>
 
             <div class="vmore">
-                <a class="btn-white" href="https://kitmu.cl/etapas/kitia/" target="_blank">Ver más tutoriales →</a>
+                <a class="btn-white" href="https://kitmu.cl/etapas/generacion-de-contenidos/kitia/" target="_blank">Ver más tutoriales →</a>
             </div>
         </section>
 
         <!-- PILARES -->
         <section id="pilares" class="tutoriales">
-            <h2>KitIA está basado en Pilares Éticos de Estándares Internacionales</h2>
+            <h2>KitIA está basado en pilares éticos de estándares internacionales</h2>
             <p class="vlead">
                 Estos pilares nacen de una investigación realizada por académicos de la FCOM, que se basa en estándares internacionales adaptados a las necesidades de las carreras de Comunicaciones
             </p>
@@ -432,7 +400,7 @@
             </div>
         </section>
 
-        <section class="kitia-faq">
+        <section class="kitia-faq" id="faq">
             <div class="faq-wrapper">
                 <h2>Preguntas frecuentes</h2>
 
@@ -458,6 +426,35 @@
                     <h4>¿Tiene costo?</h4>
                     <p>
                         Cero pesos. Es 100% gratuito para cualquier estudiante UC con correo @uc.cl. Lo activas y listo, sin trámites ni suscripciones raras.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cards-info">
+            <!-- Cards -->
+            <div class="benefits">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎓</div>
+                    <h4>Para estudiantes de Comunicaciones</h4>
+                    <p>
+                        Diseñado específicamente para el contexto académico UC
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🛡️</div>
+                    <h4>100% ético</h4>
+                    <p>
+                        Garantiza integridad en cada paso de tu trabajo
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">👥</div>
+                    <h4>Comunidad activa</h4>
+                    <p>
+                        Aprende con casos reales de otros estudiantes
                     </p>
                 </div>
             </div>
@@ -552,6 +549,12 @@
         box-shadow: 0 12px 24px rgba(55,181,111,.35);
     }
 
+    .pill-lightblue{
+        background: linear-gradient(180deg, #66B2FF, #6dc3ff);
+        color: #fff; border:0;
+        box-shadow: 0 12px 24px rgba(55,181,111,.35);
+    }
+
     .actions{ display:flex; align-items:center; gap:14px; }
     .kitmu img{ height:44px; }
     .kitmu-fallback{ font-weight:800; font-size:22px }
@@ -571,10 +574,13 @@
     /* Hero Bitácora */
     .hero-card{
         display:grid; grid-template-columns: 1fr;
-        gap:0; margin: 5% 15%; margin-top: 28px; padding:0;
+        gap:0; margin: 1% 15%; margin-top: 28px; padding:0;
+        box-shadow: none;
+        border: none;
+        background: none;
     }
     .hero-copy{
-        background: #fff;
+        /*background: #fff;*/
         color:#000; padding: 40px 36px;
         margin: 0 5%;
     }
@@ -1174,9 +1180,14 @@
         .faq-wrapper {
             padding: 2.5rem 1.8rem;
         }
-        .pill{ font-size: 10px;}
+        .pill{ font-size: 8px; padding: 8px 12px;}
     }
 
+    .cards-info {
+        padding: 4rem 1rem 6rem;
+        width: 90%;
+        margin: 0 auto;
+    }
 
 
 </style>

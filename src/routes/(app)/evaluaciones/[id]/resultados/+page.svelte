@@ -340,6 +340,9 @@
                 </div>
 
                 <button class="export" on:click={() => window.print()}>Exportar</button>
+                <button class="export btn" on:click={() => window.location.href=`/evaluaciones/${id_from_url}/checklist`}
+                        style="margin-top: 90px; color: var(--ink); border: 1px solid #eee;"
+                >Volver a editar</button>
             </div>
 
             <div class="infocard">
@@ -444,10 +447,8 @@
         <!-- volver a editar  -->
         <div style="text-align:center; margin: 24px 0;">
             <p class="muted" style="margin-bottom:32px;">
-                Esta revisión no es un cierre definitivo. Puedes volver a tus respuestas, ajustar decisiones y repetir el proceso cuantas veces lo necesites a lo largo de tu proyecto.
+                Ya terminaste tu evaluación ética. Esta revisión no es un cierre definitivo. Puedes volver a tus respuestas, ajustar decisiones y repetir el proceso cuantas veces lo necesites a lo largo de tu proyecto.
             </p>
-            <a href={`/evaluaciones/${id_from_url}/checklist`} class="btn" style="border-color: None; color: var(--ink); margin-top:38px;"
-            >Volver a editar la evaluación</a>
             </div>
 
 

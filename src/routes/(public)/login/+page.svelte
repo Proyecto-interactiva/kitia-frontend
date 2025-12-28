@@ -147,7 +147,6 @@
     <section class="auth" role="form" aria-labelledby="title-login">
         <div class="head">
             <h1 id="title-login">Acceso</h1>
-            <span class="pill">Área pública</span>
         </div>
 
         <div class="body">
