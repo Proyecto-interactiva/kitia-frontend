@@ -20,7 +20,7 @@
     let herramientas = '';
     let ready = false;
 
-    const minInfoOK = () => Boolean(etapa && (descripcion?.trim().length ?? 0) >= 20);
+    const minInfoOK = () => false;//Boolean(etapa && (descripcion?.trim().length ?? 0) >= 20);
 
     function push(role: Role, content: string){
         messages = [...messages, { role, content, ts: Date.now() }];
@@ -107,10 +107,10 @@
     }
 
     async function continuar(){
-        if(!minInfoOK()){
+        /*if(!minInfoOK()){
             error = 'Necesito al menos la etapa y una descripción breve (≥ 20 chars).';
             return;
-        }
+        }*/
         const payload = {
             etapa,
             descripcion: descripcion.trim(),
