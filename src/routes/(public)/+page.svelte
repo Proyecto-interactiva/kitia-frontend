@@ -327,8 +327,11 @@
 
                 <!-- Video -->
                 <div class="video-box">
-                    <div class="play-button">▶</div>
-                    <span class="video-label">Video: Cómo usar KitIA</span>
+                    <iframe width="720" height="400"
+                            src="https://www.youtube.com/embed/9uB2Jcc3fus?autoplay=1&mute=1&loop=1&playlist=9uB2Jcc3fus"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
                 </div>
 
                 <!-- CTA -->
