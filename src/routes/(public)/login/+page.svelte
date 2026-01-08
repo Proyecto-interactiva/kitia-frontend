@@ -2,6 +2,19 @@
 <script lang="ts">
     import { API_BASE } from '$lib/config';
     import { base } from '$app/paths';
+    import {onMount} from "svelte";
+
+    onMount(() => {
+        // Ping backend every 5 minutes to keep alive
+        const ping = () => {
+            fetch(`${API_BASE}/health`).then(() => {
+                console.log("Conectado al servidor");
+            });
+        };
+        ping(); // initial ping
+        const interval = setInterval(ping, 300000); // 5 minutes
+        return () => clearInterval(interval); // cleanup on unmount
+    });
 
     let email = '';
     let password = '';

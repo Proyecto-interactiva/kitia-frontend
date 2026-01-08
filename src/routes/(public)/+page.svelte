@@ -11,7 +11,7 @@
             });
         };
         ping(); // initial ping
-        const interval = setInterval(ping, 300000); // 5 minutes
+        const interval = setInterval(ping, 60000); // 5 minutes
         return () => clearInterval(interval); // cleanup on unmount
     });
 

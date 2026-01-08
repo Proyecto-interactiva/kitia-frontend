@@ -2,6 +2,19 @@
 <script lang="ts">
     import { base } from '$app/paths';
     import { API_BASE } from '$lib/config';
+    import {onMount} from "svelte";
+
+    onMount(() => {
+        // Ping backend every 5 minutes to keep alive
+        const ping = () => {
+            fetch(`${API_BASE}/health`).then(() => {
+                console.log("Conectado al servidor");
+            });
+        };
+        ping(); // initial ping
+        const interval = setInterval(ping, 60000); // 5 minutes
+        return () => clearInterval(interval); // cleanup on unmount
+    });
 
     // rutas de imágenes (ajústalas a tus archivos reales)
     const IMG = {
