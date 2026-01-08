@@ -4,23 +4,50 @@
     import { base } from '$app/paths';
     import {onMount} from "svelte";
 
-    onMount(() => {
-        // Ping backend every 5 minutes to keep alive
-        const ping = () => {
-            fetch(`${API_BASE}/health`).then(() => {
-                console.log("Conectado al servidor");
-            });
-        };
-        ping(); // initial ping
-        const interval = setInterval(ping, 300000); // 5 minutes
-        return () => clearInterval(interval); // cleanup on unmount
-    });
-
     let email = '';
     let password = '';
     let err = '';
     let loading = false;
     let showPass = false;
+
+    let backendReady = false;
+
+    onMount(() => {
+        // Check backend health on mount
+        const checkHealth = async () => {
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                if (res.ok) {
+                    backendReady = true;
+                    console.log("Conectado al servidor");
+                } else {
+                    throw new Error('Backend not ready');
+                }
+            } catch (e) {
+                console.log("Backend no disponible");
+            }
+        };
+        checkHealth();
+
+        // Ping backend every 5 minutes to keep alive
+        const ping = async () => {
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                if (res.ok) {
+                    backendReady = true;
+                    console.log("Conectado al servidor");
+                } else {
+                    backendReady = false;
+                    console.log("Backend no disponible");
+                }
+            } catch (e) {
+                backendReady = false;
+                console.log("Backend no disponible");
+            }
+        };
+        const interval = setInterval(ping, 30000); // 5 minutes
+        return () => clearInterval(interval); // cleanup on unmount
+    });
 
     async function submit(kind: 'login' | 'register') {
         loading = true; err = '';
@@ -154,85 +181,102 @@
     .access-instructions strong {
         color: var(--text-primary, #222);
     }
+
+    .backend-loading {
+        text-align: center;
+        padding: 40px;
+        color: var(--muted);
+    }
+    .backend-loading h2 {
+        color: var(--ink);
+        margin-bottom: 16px;
+    }
 </style>
 
 <div class="page">
-    <section class="auth" role="form" aria-labelledby="title-login">
-        <div class="head">
-            <h1 id="title-login">Acceso</h1>
+    {#if !backendReady}
+        <div class="backend-loading">
+            <h2>Conectando con el servidor...</h2>
+            <p>Estamos estableciendo una conexión segura. Esto puede tardar unos instantes.</p>
         </div>
-
-        <div class="body">
-            <p class="subtitle access-instructions">
-                <strong>¿Primera vez en KitIA?</strong>
-                <br />
-                Ingresa tu email y crea una contraseña, luego haz clic en
-                <strong>Crear cuenta</strong>.
-            </p>
-            <p class="subtitle access-instructions">
-                <strong>¿Ya tienes cuenta?</strong>
-                <br />
-                Ingresa tus datos y haz clic en
-                <strong>Entrar</strong>.
-            </p>
-
-            <div class="inputRow">
-                <label for="email">Email</label>
-                <div class="inputWrap">
-                    <input
-                            id="email"
-                            class="input"
-                            type="email"
-                            placeholder="tu@correo.com"
-                            bind:value={email}
-                            on:keydown={onKey}
-                            autocomplete="email"
-                    />
-                </div>
+    {:else}
+        <section class="auth" role="form" aria-labelledby="title-login">
+            <div class="head">
+                <h1 id="title-login">Acceso</h1>
             </div>
 
-            <div class="inputRow">
-                <label for="pass">Contraseña</label>
-                <div class="inputWrap">
-                    <input
-                            id="pass"
-                            class="input"
-                            type={showPass ? 'text' : 'password'}
-                            placeholder="••••••••"
-                            bind:value={password}
-                            on:keydown={onKey}
-                            autocomplete="current-password"
-                    />
-                    <button type="button" class="toggle" aria-label="Mostrar u ocultar contraseña" on:click={() => showPass = !showPass}>
-                        {showPass ? 'Ocultar' : 'Mostrar'}
+            <div class="body">
+                <p class="subtitle access-instructions">
+                    <strong>¿Primera vez en KitIA?</strong>
+                    <br />
+                    Ingresa tu email y crea una contraseña, luego haz clic en
+                    <strong>Crear cuenta</strong>.
+                </p>
+                <p class="subtitle access-instructions">
+                    <strong>¿Ya tienes cuenta?</strong>
+                    <br />
+                    Ingresa tus datos y haz clic en
+                    <strong>Entrar</strong>.
+                </p>
+
+                <div class="inputRow">
+                    <label for="email">Email</label>
+                    <div class="inputWrap">
+                        <input
+                                id="email"
+                                class="input"
+                                type="email"
+                                placeholder="tu@correo.com"
+                                bind:value={email}
+                                on:keydown={onKey}
+                                autocomplete="email"
+                        />
+                    </div>
+                </div>
+
+                <div class="inputRow">
+                    <label for="pass">Contraseña</label>
+                    <div class="inputWrap">
+                        <input
+                                id="pass"
+                                class="input"
+                                type={showPass ? 'text' : 'password'}
+                                placeholder="••••••••"
+                                bind:value={password}
+                                on:keydown={onKey}
+                                autocomplete="current-password"
+                        />
+                        <button type="button" class="toggle" aria-label="Mostrar u ocultar contraseña" on:click={() => showPass = !showPass}>
+                            {showPass ? 'Ocultar' : 'Mostrar'}
+                        </button>
+                    </div>
+                </div>
+
+                {#if err}<p class="err">{err}</p>{/if}
+
+                <div class="actions">
+                    <button class="btn primary" disabled={loading} on:click={() => submit('login')}>
+                        {#if loading}
+                            <span class="loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span> Entrando…</span>
+                        {:else}
+                            Entrar
+                        {/if}
+                    </button>
+                    <button
+                            class="btn"
+                            disabled={loading}
+                            on:click={() => submit('register')}
+                            aria-label="Crear cuenta nueva"
+                    >
+                        Crear cuenta
                     </button>
                 </div>
             </div>
 
-            {#if err}<p class="err">{err}</p>{/if}
-
-            <div class="actions">
-                <button class="btn primary" disabled={loading} on:click={() => submit('login')}>
-                    {#if loading}
-                        <span class="loading"><span class="dot"></span><span class="dot"></span><span class="dot"></span> Entrando…</span>
-                    {:else}
-                        Entrar
-                    {/if}
-                </button>
-                <button
-                        class="btn"
-                        disabled={loading}
-                        on:click={() => submit('register')}
-                        aria-label="Crear cuenta nueva"
-                >
-                    Crear cuenta
-                </button>
+            <div class="foot">
+                <span class="help">¿Olvidaste tu contraseña? <a class="link" href={`${base}/recuperar`}>Recupérala</a></span>
+                <span class="help">¿Problemas? <a class="link" href={`mailto:kitia.app@gmail.com`}>Contáctanos</a></span>
             </div>
-        </div>
-
-        <div class="foot">
-            <span class="help">¿Olvidaste tu contraseña? <a class="link" href={`${base}/recuperar`}>Recupérala</a></span>
-            <span class="help">¿Problemas? <a class="link" href={`mailto:kitia.app@gmail.com`}>Contáctanos</a></span>
-        </div>
-    </section>
+        </section>
+    {/if}
 </div>

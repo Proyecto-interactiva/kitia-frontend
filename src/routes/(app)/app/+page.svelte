@@ -4,15 +4,43 @@
     import {onMount} from "svelte";
     import {API_BASE} from "$lib/config";
 
-    let test_ping = false;
+    let backendReady = false;
 
     onMount(() => {
-        if (!test_ping) {
-            fetch(`${API_BASE}/health`).then(res => {
-                test_ping = true;
-                console.log("Conectado al servidor");
-            });
-        }
+        // Check backend health on mount
+        const checkHealth = async () => {
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                if (res.ok) {
+                    backendReady = true;
+                    console.log("Conectado al servidor");
+                } else {
+                    throw new Error('Backend not ready');
+                }
+            } catch (e) {
+                console.log("Backend no disponible");
+            }
+        };
+        checkHealth();
+
+        // Ping backend every 5 minutes to keep alive
+        const ping = async () => {
+            try {
+                const res = await fetch(`${API_BASE}/health`);
+                if (res.ok) {
+                    backendReady = true;
+                    console.log("Conectado al servidor");
+                } else {
+                    backendReady = false;
+                    console.log("Backend no disponible");
+                }
+            } catch (e) {
+                backendReady = false;
+                console.log("Backend no disponible");
+            }
+        };
+        const interval = setInterval(ping, 60000); // 5 minutes
+        return () => clearInterval(interval); // cleanup on unmount
     });
 
     let choice: 'new' | 'history' | null = null;
@@ -40,54 +68,61 @@
     }
 </script>
 
-<section class="intro">
-    <h1>¿En qué te puedo ayudar?</h1>
+{#if !backendReady}
+    <div class="backend-loading">
+        <h2>Cargando...</h2>
+        <p>Estamos conectando con el servidor. Esto puede tardar unos momentos.</p>
+    </div>
+{:else}
+    <section class="intro">
+        <h1>¿En qué te puedo ayudar?</h1>
 
-    <div class="cards" role="radiogroup" aria-label="Opciones de inicio">
-        <!-- TARJETA: Nueva evaluación -->
-        <article
-                class="choice"
-                role="radio"
-                tabindex="0"
-                aria-checked={choice === 'new'}
-                on:click={() => handleSelect('new')}
-                on:keydown={(e) => selectAndFocus('new', e)}
-        >
-            <div class="icon" aria-hidden="true">
-                <!-- Robot -->
+        <div class="cards" role="radiogroup" aria-label="Opciones de inicio">
+            <!-- TARJETA: Nueva evaluación -->
+            <article
+                    class="choice"
+                    role="radio"
+                    tabindex="0"
+                    aria-checked={choice === 'new'}
+                    on:click={() => handleSelect('new')}
+                    on:keydown={(e) => selectAndFocus('new', e)}
+            >
                 <div class="icon" aria-hidden="true">
                     <!-- Robot -->
-                    <img src="{`${base}/img/robot01.svg`}" alt="Robot tutor" width="154" height="154" style="border-radius: 8px;" />
+                    <div class="icon" aria-hidden="true">
+                        <!-- Robot -->
+                        <img src="{`${base}/img/robot01.svg`}" alt="Robot tutor" width="154" height="154" style="border-radius: 8px;" />
+                    </div>
                 </div>
-            </div>
 
-            <div class="body">
-                <h3>Empezar una nueva evaluación ética</h3>
-                <p>Comienza una evaluación ética desde cero y continúa tu progreso.</p>
-            </div>
-        </article>
+                <div class="body">
+                    <h3>Empezar una nueva evaluación ética</h3>
+                    <p>Comienza una evaluación ética desde cero y continúa tu progreso.</p>
+                </div>
+            </article>
 
-        <!-- TARJETA: Historial -->
-        <article
-                class="choice"
-                role="radio"
-                tabindex="0"
-                aria-checked={choice === 'history'}
-                on:click={() => handleSelect('history')}
-                on:keydown={(e) => selectAndFocus('history', e)}
-        >
-            <div class="icon" aria-hidden="true">
-                <!-- Robot -->
-                <img src="{`${base}/img/robot02.svg`}" alt="Robot tutor" width="154" height="154" style="border-radius: 8px;" />
-            </div>
+            <!-- TARJETA: Historial -->
+            <article
+                    class="choice"
+                    role="radio"
+                    tabindex="0"
+                    aria-checked={choice === 'history'}
+                    on:click={() => handleSelect('history')}
+                    on:keydown={(e) => selectAndFocus('history', e)}
+            >
+                <div class="icon" aria-hidden="true">
+                    <!-- Robot -->
+                    <img src="{`${base}/img/robot02.svg`}" alt="Robot tutor" width="154" height="154" style="border-radius: 8px;" />
+                </div>
 
-            <div class="body">
-                <h3>Ver evaluaciones anteriores</h3>
-                <p>Accede a tus evaluaciones éticas previas y continúa tu progreso.</p>
-            </div>
-        </article>
-    </div>
-</section>
+                <div class="body">
+                    <h3>Ver evaluaciones anteriores</h3>
+                    <p>Accede a tus evaluaciones éticas previas y continúa tu progreso.</p>
+                </div>
+            </article>
+        </div>
+    </section>
+{/if}
 
 <style>
     :root {
@@ -178,5 +213,28 @@
     @media (max-width: 900px){
         .cards{ grid-template-columns: 1fr; }
         .body{ max-width: unset; }
+    }
+
+    .backend-loading {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        text-align: center;
+        padding: 0 20px;
+    }
+
+    .backend-loading h2 {
+        font-size: 24px;
+        margin-bottom: 12px;
+        color: var(--ink);
+    }
+
+    .backend-loading p {
+        font-size: 16px;
+        color: var(--muted);
+        max-width: 400px;
+        margin: 0 auto;
     }
 </style>
