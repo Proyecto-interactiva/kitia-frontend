@@ -473,7 +473,7 @@
             <div class="links">
                 <a href={`https://kitmu.cl/sobre-kitia`} target="_blank">Sobre KitIA</a>
                 <a href={`mailto:kitia.app@gmail.com`}>Contacto</a>
-                <a href={`https://proyecto-interactiva.github.io/unity-game/`} target="_blank">Eduju</a>
+                <a href={`https://eduju.cl`} target="_blank">Eduju</a>
                 <a href={`https://kitmovil.com`} target="_blank">Kit móvil</a>
                 <a href={`https://kitmu.cl`} target="_blank">Kitmu</a>
 
