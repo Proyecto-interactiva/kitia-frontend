@@ -1136,7 +1136,12 @@
         }
 
         .video-box {
-            height: 280px;
+            height: 180px;
+        }
+
+        iframe{
+            width: 100%;
+            height: 180px;
         }
     }
 
